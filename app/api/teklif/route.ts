@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { addLead, dataDir, getContent, rateLimit } from "@/lib/store";
 import { attachmentType, mimeTypes } from "@/lib/uploads";
+import { quoteTopics } from "@/lib/quote-topics";
 export async function POST(request: Request) {
   if (Number(request.headers.get("content-length")) > 6 * 1024 * 1024)
     return Response.json(
@@ -26,11 +27,25 @@ export async function POST(request: Request) {
       phone = value("phone", 30),
       email = value("email", 160),
       message = value("message", 6000);
-    const valid = new Set(getContent().services.map((s) => s.slug)),
-      services = f
-        .getAll("services")
-        .map(String)
-        .filter((s) => valid.has(s));
+    const valid = new Set([
+        ...getContent().services.map((s) => s.slug),
+        ...quoteTopics.map((topic) => topic.label),
+      ]),
+      services = [
+        ...new Set(
+          f
+            .getAll("services")
+            .map(String)
+            .flatMap((value) => {
+              if (!value.startsWith("topic:")) return [value];
+              const topic = quoteTopics.find(
+                (topic) => `topic:${topic.id}` === value,
+              );
+              return topic ? [topic.label] : [];
+            })
+            .filter((s) => valid.has(s)),
+        ),
+      ];
     if (
       !company ||
       !name ||

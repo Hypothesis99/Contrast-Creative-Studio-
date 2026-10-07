@@ -76,7 +76,7 @@ export function SiteShell({
         </div>
       </header>
       <main id="main-content">{children}</main>
-      <section className="closing-cta">
+      <section className="closing-cta" hidden={pathname === "/"}>
         <div className="container">
           <span className="eyebrow">SIRADAKİ İYİ FİKİR SİZİN OLABİLİR.</span>
           <Link href="/teklif-al">
@@ -96,9 +96,9 @@ export function SiteShell({
           <div className="footer-top">
             <Brand />
             <p>
-              Strateji, tasarım ve üretim.
+              Marka · Dijital · Prodüksiyon
               <br />
-              Markanız için aynı masadayız.
+              Orhangazi / Bursa
             </p>
             <div>
               {settings.email &&
@@ -165,6 +165,31 @@ export function SiteShell({
               <Link href="/kvkk">KVKK</Link>
               <Link href="/gizlilik">Gizlilik</Link>
               <Link href="/cerez-politikasi">Çerezler</Link>
+              {settings.whatsapp && (
+                <Link
+                  href={
+                    isSampleContact(settings, "whatsapp")
+                      ? "/iletisim#iletisim-bilgileri"
+                      : `https://wa.me/${whatsapp}`
+                  }
+                  {...(!isSampleContact(settings, "whatsapp")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  WhatsApp{isSampleContact(settings, "whatsapp") && " · örnek"}{" "}
+                  ↗
+                </Link>
+              )}
+              {settings.mapUrl && (
+                <a
+                  href={settings.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Maps
+                  {isSampleContact(settings, "mapUrl") && " · örnek bölge"} ↗
+                </a>
+              )}
               {settings.instagram &&
                 (isSampleContact(settings, "instagram") ? (
                   <Link href="/iletisim#iletisim-bilgileri">
@@ -181,7 +206,7 @@ export function SiteShell({
                 ))}
             </div>
             <span>
-              Fikirden, fark yaratmaya. <Star />
+              Fikirden uygulamaya. Tek bir Contrast. <Star />
             </span>
           </div>
         </div>

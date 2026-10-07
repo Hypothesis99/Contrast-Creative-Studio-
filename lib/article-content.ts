@@ -2,12 +2,57 @@ import type { Article } from "./types";
 
 const entries: Omit<Article, "date" | "published">[] = [
   {
+    id: "a-9",
+    slug: "profesyonel-icerik-markaya-ne-kazandirir",
+    title: "Profesyonel içerik markaya ne kazandırır?",
+    category: "Fotoğraf & video",
+    summary:
+      "İyi fotoğraf ve video yalnızca güzel görünmez. Markanın algısını, güvenilirliğini ve iletişim gücünü doğrudan etkiler.",
+    image: "/images/product-detail.svg",
+    seoTitle: "Profesyonel Fotoğraf ve Video İçeriği Markaya Ne Kazandırır?",
+    seoDescription:
+      "Markanız için profesyonel fotoğraf ve video neden önemli? Ürün çekimi, sosyal medya içeriği ve video üretimini hedefe göre planlayın.",
+    body: `# Profesyonel içerik, markanın anlatım gücüdür
+
+Bir müşterinin markanızla ilk karşılaşması çoğu zaman küçük bir ekranda gerçekleşir. Bir ürün fotoğrafı, kısa bir video veya web sitenizdeki bir görsel, daha ilk anda ne ürettiğinizi ve nasıl bir işletme olduğunuzu anlatır. Profesyonel içerik bu karşılaşmayı tesadüfe bırakmamaktır. Amaç yalnızca güzel görüntü elde etmek değil, markanın sözünü anlaşılır ve tutarlı biçimde aktarmaktır.
+
+## Algıyı ve güveni birlikte düşünün
+
+Net bir ürün fotoğrafı müşterinin malzemeyi, rengi ve kullanım biçimini anlamasına yardım eder. Çekim boyunca aynı ışık, arka plan ve kadraj yaklaşımını korumak da ürünler arasında bir bütünlük kurar. Bir işletmenin kendi ekibini ve çalışma ortamını göstermesi, müşterinin kimlerle iletişim kuracağını görmesini sağlar. Güven, ürünü olduğundan farklı gösteren rötuşlarla değil, doğru bilgiyi özenli biçimde sunarak oluşur.
+
+## Çekimden önce hedefi belirleyin
+
+Her görsel her amaç için uygun değildir. E-ticaret sayfasında ürünün detayları önem kazanırken, sosyal medya videosunda ilk saniyelerde anlaşılır bir mesaj gerekebilir. Reklam için üretilen bir içeriğin hedef kitlesi, teklifi ve yönlendirmesi de net olmalıdır. Önce görüntünün nerede kullanılacağını, izleyicinin ne anlamasını istediğinizi ve sonraki adımın ne olacağını belirleyin.
+
+- Web sitesi için genel atmosfer ve hizmet anlatımı
+- E-ticaret için ürün, detay, ölçek ve kullanım görselleri
+- Sosyal medya için dikey videolar, kapaklar ve kısa hikâyeler
+- Reklam için tek bir ihtiyaca odaklanan mesaj ve çağrı
+- Basılı uygulamalar için doğru çözünürlük ve baskı alanı
+
+## Bir çekimden farklı içerikler üretin
+
+Planlı bir çekim günü, farklı mecralara uygun bir içerik arşivi oluşturabilir. Aynı ürünün genel kadrajı, yakın detayı ve kullanım anı birlikte çekilebilir. Video üretiminde yatay ve dikey kompozisyonların ihtiyaçları baştan düşünülürse, sonradan görüntüyü kırparken önemli detaylar kaybolmaz. Böylece içerikleri tekrar tekrar çekmek yerine, doğru dosyaları doğru mecrada kullanabilirsiniz.
+
+## Marka dilini koruyun
+
+Renk, ışık, tipografi ve hareket tercihleri markanın görsel kimliğiyle uyumlu olmalıdır. Sakin bir marka için her videoya hızlı geçişler eklemek veya güçlü bir ürünün detayını yoğun efektlerin arkasında bırakmak mesajı zayıflatabilir. Teknik kalite kadar anlatımın tutarlılığına da dikkat edin. Fotoğraf, video ve tasarım aynı fikre hizmet ettiğinde farklı yayınlar ortak bir marka dünyası oluşturur.
+
+## Sonuçları nasıl değerlendirebilirsiniz?
+
+İçeriğin başarısını yalnızca beğeni sayısıyla ölçmeyin. Ürün sayfasındaki etkileşim, videonun izlenme süresi, form talepleri veya kampanyanın dönüşümleri amaca göre daha anlamlı olabilir. Görsel değişikliği satış artışının tek nedeni olarak sunmak doğru değildir; fiyat, teklif ve kullanıcı deneyimi de sonuca etki eder. Farklı içerikleri benzer koşullarda karşılaştırın ve öğrendiklerinizi sonraki üretime aktarın.
+
+## Nereden başlamalı?
+
+Mevcut görsellerinizi inceleyin. En çok kullanılan ürünleri, hizmetleri ve kanalları belirleyin. Kısa bir ihtiyaç listesi, kullanım yerleri ve referans beğenilerle bir çekim planı hazırlayın. Bursa ve Orhangazi’de bir çekim veya uzaktan planlanabilecek bir içerik projesi için bu bilgiler iyi bir başlangıç olur. Profesyonel üretim, markanızın kendini daha açık anlatmasını sağlayan sürdürülebilir bir çalışma düzenine dönüşmelidir.`,
+  },
+  {
     id: "a-1",
     slug: "kurumsal-kimlik-nedir",
-    title: "Bir logodan fazlası: kurumsal kimlik",
+    title: "Kurumsal kimlik nedir?",
     category: "Marka & tasarım",
     summary:
-      "Logo, renk, tipografi ve iletişim dili nasıl aynı marka hikâyesinde buluşur? Tutarlı bir kimlik oluşturmak için bir başlangıç rehberi.",
+      "Logo bir başlangıçtır. Kurumsal kimlik, markanın bütün temas noktalarında nasıl görüneceğini belirleyen görsel sistemdir.",
     image: "/images/forma-detail.svg",
     seoTitle: "Kurumsal Kimlik Nedir? Marka Kimliği Rehberi",
     seoDescription:
@@ -135,10 +180,10 @@ Fotoğraf tek başına satış artışı garantisi vermez. Fiyat, açıklama, st
   {
     id: "a-4",
     slug: "logo-tasarimi-fiyatlarini-ne-belirler",
-    title: "Logo fiyatını ne belirler?",
+    title: "Bir logo tasarımının fiyatı nasıl belirlenir?",
     category: "Marka & tasarım",
     summary:
-      "İki logo teklifi neden farklı fiyatlanır? Araştırma, konsept, revizyon ve teslim dosyaları üzerinden kapsamı karşılaştırın.",
+      "Logo tasarımında fiyatı belirleyen yalnızca çizim süresi değildir. Araştırma, strateji, fikir geliştirme ve uygulama süreci de işin bir parçasıdır.",
     image: "/images/forma.svg",
     seoTitle: "Logo Tasarımı Fiyatlarını Ne Belirler?",
     seoDescription:

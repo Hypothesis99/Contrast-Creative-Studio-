@@ -6,6 +6,8 @@ import { seed, editorialSeed } from "./seed";
 import previousContent from "./content-v1.json";
 import { mergeContentUpdate } from "./content-update";
 import { fillSampleContent } from "./sample-content";
+import { applyBrandCopy } from "./brand-copy";
+import { articles } from "./article-content";
 import type { Content, Lead } from "./types";
 // Resolve mutable state at runtime, so database, upload and log writes do not
 // become Turbopack source dependencies and trigger repeated page reloads.
@@ -60,6 +62,32 @@ function database() {
         );
         db.prepare("INSERT INTO content_updates(id) VALUES(?)").run(
           sampleVersion,
+        );
+      }
+      const brandVersion = "brand-copy-2026-10-v4";
+      if (
+        !db
+          .prepare("SELECT id FROM content_updates WHERE id=?")
+          .get(brandVersion)
+      ) {
+        const row = db
+          .prepare("SELECT value FROM content WHERE id=1")
+          .get() as { value: string };
+        const updated = applyBrandCopy(JSON.parse(row.value));
+        const article = articles.find(
+          (a) => a.slug === "profesyonel-icerik-markaya-ne-kazandirir",
+        )!;
+        if (
+          !updated.articles.some(
+            (a) => a.id === article.id || a.slug === article.slug,
+          )
+        )
+          updated.articles.push(article);
+        db.prepare("UPDATE content SET value=? WHERE id=1").run(
+          JSON.stringify(updated),
+        );
+        db.prepare("INSERT INTO content_updates(id) VALUES(?)").run(
+          brandVersion,
         );
       }
       db.exec("COMMIT");

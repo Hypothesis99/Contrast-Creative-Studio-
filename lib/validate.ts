@@ -71,6 +71,8 @@ export function validateContent(value: unknown): Content {
     }),
     about: string(s.about, 6000),
     team: string(s.team, 6000),
+    experienceYears: string(s.experienceYears ?? "", 3),
+    experienceDemo: boolean(s.experienceDemo ?? false),
     clients: list(s.clients, 50).map((x) => {
       const c = object(x);
       return {
@@ -89,6 +91,8 @@ export function validateContent(value: unknown): Content {
       };
     }),
   };
+  if (settings.experienceYears && !/^\d{1,2}$/.test(settings.experienceYears))
+    throw new Error("Deneyim yılı 0–99 arasında sayı olmalı.");
   if (settings.email && !/^\S+@\S+\.\S+$/.test(settings.email))
     throw new Error("Geçerli bir e-posta adresi girin.");
   if (settings.gaId && !/^G-[A-Z0-9]+$/.test(settings.gaId))

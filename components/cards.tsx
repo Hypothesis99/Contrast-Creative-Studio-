@@ -30,6 +30,7 @@ export function ProjectCard({
         </div>
         <span>{project.category}</span>
       </div>
+      <span className="project-read-more">Projeyi İncele →</span>
     </Link>
   );
 }
@@ -50,7 +51,7 @@ export function ArticleCard({ article }: { article: Article }) {
         <h3>{article.title}</h3>
         <p>{article.summary}</p>
         <span className="text-link">
-          Yazıyı oku <Arrow diagonal />
+          Devamını oku <Arrow />
         </span>
       </div>
     </Link>

@@ -2,50 +2,49 @@ export const workingProcess = [
   {
     title: "Tanışma & keşif",
     description:
-      "İşinizi, hedef kitlenizi ve ihtiyacınızı dinleriz. Hazır bir paket önermek yerine hangi sorunu çözmek istediğimizi belirleriz.",
+      "Önce sizi dinliyoruz. Markanızı, hedeflerinizi, müşterilerinizi ve çözmek istediğiniz problemi anlamaya çalışıyoruz.",
   },
   {
     title: "Yol haritası",
     description:
-      "Kapsamı, teslimleri, bütçeyi ve takvimi açıkça konuşuruz. Herkesin neyi, ne zaman yapacağı belli olur.",
+      "Ne yapacağımızı değil, neden yapacağımızı netleştiriyoruz. Projenin kapsamını, görsel yönünü ve üretim planını birlikte oluşturuyoruz.",
   },
   {
     title: "Yaratıcı üretim",
     description:
-      "Fikri tasarıma, içeriğe veya görüntüye dönüştürürüz. Kritik aşamalarda sizi sürece dahil eder, geri bildirimleri birlikte değerlendiririz.",
+      "Fikirleri tasarıma, görüntüye ve deneyime dönüştürüyoruz. Süreç boyunca iletişimde kalıyor, projeyi birlikte geliştiriyoruz.",
   },
   {
-    title: "Teslim & gelişim",
+    title: "Yayın & gelişim",
     description:
-      "Onaylanan işleri kullanıma hazır teslim ederiz. Süreklilik gerektiren çalışmalarda sonuçları okuyup bir sonraki adımı planlarız.",
+      "Üretmekle bırakmıyoruz. Projeyi doğru şekilde yayına alıyor, uyguluyor ve ihtiyaç olduğunda geliştirmeye devam ediyoruz.",
   },
 ];
-
 export const studioFaq = [
   {
-    question: "Birlikte çalışmaya nasıl başlıyoruz?",
+    question: "Hangi firmalarla çalışıyorsunuz?",
     answer:
-      "Teklif formunda markanızı ve ihtiyacınızı anlatmanız yeterli. Ön görüşmede hedefi netleştirir, ardından kapsamı, teslimleri ve takvimi içeren bir teklif hazırlarız.",
+      "Yeni kurulan markalardan mevcut kimliğini yenilemek isteyen işletmelere kadar farklı ölçeklerde firmalarla çalışıyoruz.",
   },
   {
-    question: "Yalnızca Bursa ve Orhangazi’de mi çalışıyorsunuz?",
+    question: "Sadece Bursa ve Orhangazi’de mi hizmet veriyorsunuz?",
     answer:
-      "Tasarım, web ve dijital iletişim süreçleri uzaktan yürütülebilir. Çekim ve uygulama gereken projelerde konum, ulaşım ve saha koşullarını birlikte planlarız.",
+      "Hayır. Bursa ve Orhangazi merkezli çalışıyoruz ancak dijital projelerde Türkiye’nin her yerinden markalarla çalışabiliyoruz.",
   },
   {
     question: "Tek bir hizmet için çalışabilir miyiz?",
     answer:
-      "Evet. Bir logo, çekim veya kampanya gibi belirli bir iş için de; markanızın iletişimini birlikte geliştireceğimiz uzun süreli bir çalışma için de kapsam oluşturabiliriz.",
+      "Evet. Yalnızca logo, web sitesi, fotoğraf çekimi veya video prodüksiyon gibi tek bir hizmet için de çalışabiliriz.",
   },
   {
-    question: "Fiyat ve teslim süresi nasıl belirleniyor?",
+    question: "Proje fiyatları nasıl belirleniyor?",
     answer:
-      "İşin kapsamı, üretim ihtiyaçları, teslim adedi ve takvim belirleyicidir. Araştırma, revizyon, lisans ve üretim gibi kalemleri teklif içinde açıkça belirtiriz.",
+      "Her projenin kapsamı farklı olduğu için standart bir fiyat listesi yerine ihtiyaca göre teklif hazırlıyoruz.",
   },
   {
-    question: "Mevcut tasarımlarım ve hesaplarımla devam edebilir miyiz?",
+    question: "Projeye nasıl başlıyoruz?",
     answer:
-      "Evet. Önce mevcut materyalleri ve hesapları inceleriz. Korunacak güçlü yönleri ve geliştirilmesi gereken alanları belirleyerek gereksiz bir başlangıçtan kaçınırız.",
+      "Kısa bir görüşmeyle ihtiyacınızı ve hedefinizi öğreniyoruz. Ardından kapsamı, süreci ve teklifimizi netleştiriyoruz.",
   },
 ];
 

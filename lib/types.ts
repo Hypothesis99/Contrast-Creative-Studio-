@@ -63,6 +63,8 @@ export type Settings = {
   sampleContactFields?: ContactField[];
   about: string;
   team: string;
+  experienceYears?: string;
+  experienceDemo?: boolean;
   clients: { name: string; logo: string; demo?: boolean }[];
   testimonials: {
     name: string;

@@ -1,0 +1,15 @@
+{
+  "about": "Contrast’ın çıkış noktası basit: Her markanın anlatmaya değer bir hikâyesi var. Bizim işimiz, o hikâyenin doğru yerini bulmak ve onu güçlü bir fikre dönüştürmek. Tasarımı yalnızca güzel bir sonuç olarak değil, markanızın kendini daha açık anlatmasının bir yolu olarak görüyoruz.\n\nİşe dinleyerek başlıyoruz. Ne ürettiğinizi, müşterinizin sizi neden seçtiğini ve nereye gitmek istediğinizi anlamadan görsel karar vermiyoruz. Bazen çözüm yeni bir kimlik, bazen daha anlaşılır bir web sitesi, bazen de ürününüzü doğru anlatan bir fotoğraf serisi oluyor. İhtiyaca göre düşünüyor, hizmetleri aynı hedef etrafında bir araya getiriyoruz.\n\nBursa ve Orhangazi’de yerel işletmelerin ihtiyaçlarını odağımıza alırken, tasarım ve dijital iletişim projelerinde mesafeyi bir engel olarak görmüyoruz. Açık bir kapsam, düzenli iletişim ve özenli uygulamayla birlikte çalışıyoruz. Büyük sözler yerine neyi, neden yaptığımızı anlatmayı; ortaya çıkan işi de bu açıklıkla teslim etmeyi önemsiyoruz.",
+  "articles": [
+    {
+      "slug": "kurumsal-kimlik-nedir",
+      "title": "Bir logodan fazlası: kurumsal kimlik",
+      "summary": "Logo, renk, tipografi ve iletişim dili nasıl aynı marka hikâyesinde buluşur? Tutarlı bir kimlik oluşturmak için bir başlangıç rehberi."
+    },
+    {
+      "slug": "logo-tasarimi-fiyatlarini-ne-belirler",
+      "title": "Logo fiyatını ne belirler?",
+      "summary": "İki logo teklifi neden farklı fiyatlanır? Araştırma, konsept, revizyon ve teslim dosyaları üzerinden kapsamı karşılaştırın."
+    }
+  ]
+}

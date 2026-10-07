@@ -3,19 +3,39 @@ import { getContent } from "@/lib/store";
 import { metadata, JsonLd, publicUrl } from "@/lib/seo";
 import { Arrow, Star } from "@/components/icons";
 import { ProjectCard, ArticleCard } from "@/components/cards";
-import { Process, Faq } from "@/components/editorial";
-import { StudioSelection } from "@/components/studio-selection";
+import { Process, Faq, Paragraphs } from "@/components/editorial";
+import { QuoteForm } from "@/components/quote-form";
 import { isSampleContact } from "@/lib/sample-content";
+import { serviceGroups, featuredArticleSlugs } from "@/lib/brand-copy";
+
 export function generateMetadata() {
   return metadata(
     "Contrast Creative Studio — Bursa Reklam & Tasarım Ajansı",
-    "Bursa ve Orhangazi’de marka kimliği, sosyal medya, web tasarımı ve prodüksiyon. Markanızı unutulmaz kılacak fikirler için tanışalım.",
+    "Marka, dijital ve prodüksiyon. Bursa / Orhangazi merkezli Contrast ile fikirden uygulamaya yaratıcı üretim.",
     "/",
   );
 }
 export default function Home() {
   const { settings: s, projects, services, articles } = getContent();
   const url = publicUrl();
+  const published = projects.filter((p) => p.published);
+  const actualProjects = published.filter((p) => !p.demo);
+  const actualClients = s.clients.filter((c) => !c.demo);
+  const featured = featuredArticleSlugs
+    .map((slug) => articles.find((a) => a.slug === slug && a.published))
+    .filter((a) => a !== undefined);
+  const blogSelection = [
+    ...featured,
+    ...articles.filter(
+      (a) => a.published && !featured.some((x) => x.id === a.id),
+    ),
+  ].slice(0, 3);
+  const showreel = s.showreelUrl || "/showreel";
+  const external = showreel.startsWith("https://");
+  const whatsappDemo = isSampleContact(s, "whatsapp");
+  const whatsapp = whatsappDemo
+    ? "/iletisim#iletisim-bilgileri"
+    : `https://wa.me/${s.whatsapp.replace(/\D/g, "")}`;
   return (
     <>
       {url && (
@@ -39,7 +59,8 @@ export default function Home() {
       <section className="hero container">
         <div className="hero-topline">
           <span>
-            <i className="live-dot" /> BAĞIMSIZ FİKİRLER. GÜÇLÜ MARKALAR.
+            <i className="live-dot" />
+            {s.name.toLocaleUpperCase("tr-TR")}
           </span>
           <span>BURSA · ORHANGAZİ · HER YERDE</span>
         </div>
@@ -51,53 +72,49 @@ export default function Home() {
               <span>unutulmaz.</span>
               <Star className="hero-star" />
             </h1>
+            <p className="hero-lead">
+              Markaları düşünüyor, tasarlıyor ve görünür hale getiriyoruz.
+            </p>
             <p>
-              Markanızı görünür değil, unutulmaz hale getiriyoruz. Strateji,
-              tasarım ve yaratıcı üretimle hikâyenize yeni bir perspektif
-              katıyoruz.
+              Kimlikten dijitale, fotoğraftan videoya; markanızın ihtiyaç
+              duyduğu yaratıcı üretimi tek bir fikir etrafında topluyoruz.
             </p>
             <div className="hero-actions">
               <Link href="/projeler" className="button">
-                Projelerimizi incele <Arrow diagonal />
+                Projeleri İncele <Arrow />
               </Link>
-              <Link href="/teklif-al" className="text-link">
-                Projenizi konuşalım <Arrow />
+              <Link href="#proje-formu" className="text-link">
+                Bir Proje Konuşalım <Arrow />
               </Link>
             </div>
             <div className="hero-note">
-              <span>01 / YENİ BİR PERSPEKTİF</span>
+              <span>BURSA · ORHANGAZİ · HER YERDE</span>
               <span>KEŞFETMEK İÇİN AŞAĞI ↓</span>
             </div>
           </div>
           <Link
-            href={s.showreelUrl || "/projeler"}
+            href={showreel}
             className="hero-art"
-            {...(s.showreelUrl.startsWith("https://")
+            {...(external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
             <img
               src="/images/studio.svg"
-              alt="Contrast’ın turuncu, siyah ve krem tonlarından oluşan yaratıcı tasarım kompozisyonu"
+              alt="Contrast’ın turuncu, siyah ve krem yaratıcı tasarım kompozisyonu"
               width="760"
               height="820"
               fetchPriority="high"
             />
             <span className="art-top">FİKİR + TASARIM + ETKİ</span>
             <span className="art-bottom">
-              <span className="play-icon">{s.showreelUrl ? "▶" : "↗"}</span>
+              <span className="play-icon">▶</span>
               <span>
-                {s.showreelUrl
-                  ? s.showreelDemo
-                    ? "Konsept showreel"
-                    : "Studio showreel"
-                  : "Yaratıcı dünyamızı keşfet"}
+                {s.showreelDemo ? "Konsept showreel" : "Studio showreel"}
                 <small>
                   {s.showreelDemo
-                    ? "20 SANİYE / ÖRNEK ÇALIŞMA"
-                    : s.showreelUrl
-                      ? "HİKÂYEMİZİ İZLEYİN"
-                      : "TASARIM KONSEPTLERİ"}
+                    ? "45 SANİYE / ÖRNEK ÇALIŞMA"
+                    : "HİKÂYEMİZİ İZLEYİN"}
                 </small>
               </span>
             </span>
@@ -106,103 +123,193 @@ export default function Home() {
       </section>
       <div className="ticker" aria-hidden="true">
         <div>
-          İYİ FİKİRLER <Star /> GÜÇLÜ KONTRASTLAR <Star /> BİRLİKTE FARK
-          YARATALIM <Star /> İYİ FİKİRLER <Star />
+          MARKA <Star /> DİJİTAL <Star /> PRODÜKSİYON <Star /> FİKİRDEN
+          UYGULAMAYA <Star />
         </div>
       </div>
-      <StudioSelection
-        projects={projects.filter((p) => p.published)}
-        showreelUrl={s.showreelUrl}
-        showreelDemo={s.showreelDemo}
-      />
-      <section className="section container">
+      <section className="studio-selection" id="showreel">
+        <div className="container selection-grid">
+          <div className="selection-copy">
+            <span className="eyebrow light">SHOWREEL</span>
+            <h2>
+              {s.showreelDemo || !s.showreelUrl
+                ? "45 saniyede Contrast."
+                : "Contrast’tan bir seçki."}
+            </h2>
+            <p className="large-copy">Fikirden ekrana, kameradan sokağa.</p>
+            <p>
+              Marka kimliği, dijital tasarım, sosyal medya, fotoğraf, video ve
+              fiziksel uygulamalardan seçtiğimiz işlere kısa bir bakış.
+            </p>
+            <Link
+              href={showreel}
+              className="text-link light-link"
+              {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              ▶ Showreel’i İzle
+            </Link>
+            {s.showreelDemo && (
+              <p className="showreel-sample">
+                Örnek çalışma · Kurmaca markalar için konsept seçki
+              </p>
+            )}
+          </div>
+          <div className="selection-work">
+            {!external ? (
+              <video
+                className="showreel-player"
+                controls
+                playsInline
+                preload="none"
+                poster="/videos/concept-showreel-poster.jpg"
+                width="1280"
+                height="720"
+                aria-label="Contrast 45 saniyelik konsept showreel"
+              >
+                <source src="/videos/concept-showreel.mp4" type="video/mp4" />
+                <a href="/showreel">Showreel’i açın</a>
+              </video>
+            ) : (
+              <Link href={showreel} target="_blank" rel="noopener noreferrer">
+                <img
+                  src="/images/studio.svg"
+                  alt="Contrast showreel’i izle"
+                  width="760"
+                  height="820"
+                  loading="lazy"
+                />
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
+      <section className="section container" id="hizmetler">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">01 — NELER YAPIYORUZ?</span>
+            <span className="eyebrow">HİZMETLER</span>
             <h2>
-              Tek bir bakış açısı.
+              Tek bir marka.
               <br />
-              <span className="muted">Birçok yaratıcı çözüm.</span>
+              <span className="muted">Her temas noktasında aynı fikir.</span>
             </h2>
           </div>
           <p>
-            Bir logodan çok daha fazlası.
-            <br />
-            Markanızın ihtiyaç duyduğu her noktada
-            <br />
-            aynı tutkuyla üretiyoruz.
+            Bir markanın yalnızca logosunu değil, insanların onunla karşılaştığı
+            bütün alanları düşünüyoruz.
           </p>
         </div>
         <div className="service-groups">
-          {[
-            ["01", "Marka & tasarım", "Bir karakter oluşturuyoruz.", "Tasarım"],
-            [
-              "02",
-              "Dijital & iletişim",
-              "Doğru insanlara ulaşıyoruz.",
-              "Dijital",
-            ],
-            [
-              "03",
-              "Fotoğraf & video",
-              "Hikâyenizi canlandırıyoruz.",
-              "Prodüksiyon",
-            ],
-          ].map(([n, title, desc, group]) => (
-            <div className="service-group" key={group}>
+          {serviceGroups.map((group, i) => (
+            <div className="service-group" key={group.id}>
               <div className="service-group-top">
-                <span>{n}</span>
+                <span>
+                  {String(i + 1).padStart(2, "0")} /{" "}
+                  {group.title.toLocaleUpperCase("tr-TR")}
+                </span>
                 <Arrow diagonal />
               </div>
-              <h3>{title}</h3>
-              <p>{desc}</p>
+              <h3>{group.headline}</h3>
+              <p>{group.description}</p>
               <div>
-                {services
-                  .filter((x) => x.group === group)
-                  .map((x) => (
-                    <Link href={`/hizmetler/${x.slug}`} key={x.slug}>
-                      {x.title}
+                {group.links
+                  .filter(([, slug]) => services.some((s) => s.slug === slug))
+                  .map(([label, slug]) => (
+                    <Link href={`/hizmetler/${slug}`} key={label}>
+                      {label}
                       <span>↗</span>
                     </Link>
                   ))}
+                <Link className="group-cta" href={`/hizmetler#${group.id}`}>
+                  {group.cta}
+                  <span>→</span>
+                </Link>
               </div>
             </div>
           ))}
         </div>
       </section>
-      <section className="section projects-section">
+      <section className="section projects-section" id="secili-projeler">
         <div className="container">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">02 — SEÇİLİ PROJELER</span>
+              <span className="eyebrow">SEÇİLİ PROJELER</span>
               <h2>
-                İşimiz, kendini
-                <br />
-                <span className="serif">anlatır.</span>
+                İşler <span className="serif">konuşsun.</span>
               </h2>
+              <p>
+                Her proje yeni bir problem, yeni bir fikir ve yeni bir görsel
+                dünya.
+              </p>
             </div>
-            <Link className="text-link" href="/projeler">
-              Tüm projeler <Arrow diagonal />
-            </Link>
+            <p>
+              Burada yalnızca ortaya çıkan tasarımı değil, arkasındaki düşünceyi
+              de gösteriyoruz.
+            </p>
           </div>
           <div className="project-grid">
-            {projects
-              .filter((x) => x.published)
-              .slice(0, 4)
-              .map((p, i) => (
-                <ProjectCard project={p} key={p.id} index={i} />
-              ))}
+            {published.slice(0, 4).map((p, i) => (
+              <ProjectCard project={p} key={p.id} index={i} />
+            ))}
+          </div>
+          <Link href="/projeler" className="text-link section-end-link">
+            Tüm projeleri gör <Arrow />
+          </Link>
+        </div>
+      </section>
+      <section className="section container" id="rakamlarla-contrast">
+        <span className="eyebrow">RAKAMLARLA CONTRAST</span>
+        <h2>
+          Tasarlıyoruz.
+          <br />
+          Üretiyoruz.
+          <br />
+          <span className="muted">Hayata geçiriyoruz.</span>
+        </h2>
+        <div className="studio-stats">
+          <div>
+            <strong>{actualProjects.length || published.length}</strong>
+            <span>
+              {actualProjects.length ? "Tamamlanan proje" : "Konsept proje"}
+            </span>
+          </div>
+          <div>
+            <strong>{actualClients.length || s.clients.length}</strong>
+            <span>
+              {actualClients.length
+                ? "Birlikte çalışılan marka"
+                : "Örnek marka"}
+            </span>
+          </div>
+          {s.experienceYears && (
+            <div>
+              <strong>
+                {s.experienceYears}+ <small>YIL</small>
+              </strong>
+              <span>Tasarım ve üretim deneyimi</span>
+              {s.experienceDemo && (
+                <small className="sample-inline">Örnek bilgi</small>
+              )}
+            </div>
+          )}
+          <div>
+            <strong>360°</strong>
+            <span>Marka, dijital ve prodüksiyon</span>
           </div>
         </div>
       </section>
-      <section className="brands-section container">
-        <span className="eyebrow">
-          {s.clients.length && s.clients.every((c) => c.demo)
-            ? "ÖRNEK MARKA SEÇKİSİ"
-            : s.clients.length
-              ? "GÜZEL İŞLER, GÜÇLÜ İŞ BİRLİKLERİYLE BAŞLAR."
-              : "KONSEPTLERDE FARKLI MARKA DÜNYALARI"}
-        </span>
+      <section className="brands-section container" id="referanslar">
+        <span className="eyebrow">REFERANSLAR</span>
+        <h2>Birlikte ürettiklerimiz.</h2>
+        <p>
+          Farklı sektörlerden markalarla, farklı ölçeklerde projeler üzerinde
+          çalışıyoruz.
+        </p>
+        <p>
+          Her markaya aynı çözümü değil, ihtiyaç duyduğu fikri üretmeye
+          inanıyoruz.
+        </p>
         {s.clients.length ? (
           <div className="brand-logos">
             {s.clients.map((c) => (
@@ -225,113 +332,160 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <>
-            <div className="brand-logos concept-names">
-              {projects
-                .filter((p) => p.published && p.demo)
-                .map((p) => (
-                  <Link href={`/projeler/${p.slug}`} key={p.id}>
-                    {p.client}
-                  </Link>
-                ))}
-            </div>
-            <p className="content-note">
-              Bu seçkideki isimler yaratıcı yaklaşımımızı anlatan konsept
-              markalardır. Gerçek müşteri referansları değildir.
-            </p>
-          </>
+          <p className="content-note">Yeni iş birliklerine açık bir stüdyo.</p>
         )}
+        <Link href="/referanslar" className="text-link">
+          Referansları incele <Arrow />
+        </Link>
       </section>
-      <section className="about-section">
+      <section className="about-section" id="hakkimizda">
         <div className="container about-grid">
           <div>
-            <span className="eyebrow light">03 — BİZ KİMİZ?</span>
+            <span className="eyebrow light">HAKKIMIZDA</span>
             <h2>
-              Farklı düşünürüz.
+              İyi tasarım,
               <br />
-              Birlikte <span className="serif">üretiriz.</span>
+              iyi bir soruyla <span className="serif">başlar.</span>
             </h2>
             <Star className="about-star" />
           </div>
           <div>
-            <p className="large-copy">İyi tasarım, iyi bir soruyla başlar.</p>
-            <p>{s.about.split(/\n\n+/)[0]}</p>
+            <Paragraphs text={s.about} />
             <Link href="/hakkimizda" className="text-link light-link">
-              Bizi biraz daha tanıyın <Arrow diagonal />
+              Contrast’ı daha yakından tanıyın <Arrow />
             </Link>
           </div>
         </div>
       </section>
-      <section className="section container">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">FİKİRDEN UYGULAMAYA</span>
-            <h2>
-              Nasıl birlikte
-              <br />
-              <span className="muted">çalışıyoruz?</span>
-            </h2>
-          </div>
-          <p>
-            Açık bir kapsam, ortak bir hedef.
+      <section className="section container detail-grid" id="yaklasimimiz">
+        <div>
+          <span className="eyebrow">YAKLAŞIMIMIZ</span>
+          <h2>
+            Güzel görünmesi yetmez.
             <br />
-            Her adımda ne yaptığımızı bilin.
-          </p>
+            <span className="muted">Bir nedeni olmalı.</span>
+          </h2>
         </div>
-        <Process />
+        <div>
+          <p>
+            Trendleri takip ediyoruz ama yalnızca trend olduğu için
+            kullanmıyoruz.
+          </p>
+          <p>
+            Her renk, her tipografi, her kadraj ve her hareket markanın anlatmak
+            istediği şeyin bir parçası olmalı.
+          </p>
+          <p>Çünkü bizim için iyi tasarım; yalnızca dikkat çekmez.</p>
+          <div className="approach-words">
+            <span>Anlatır.</span>
+            <span>Hissettirir.</span>
+            <span>Hatırlanır.</span>
+          </div>
+        </div>
       </section>
-      <section className="section container quote-section">
-        <span className="eyebrow">
-          04 — İYİ İŞLERİN ARDINDA İYİ İLİŞKİLER VAR.
-        </span>
-        {s.testimonials.length ? (
-          <>
-            {s.testimonials[0].demo && (
-              <span className="eyebrow sample-label">Örnek yorum · kurgu</span>
-            )}
-            <blockquote>“{s.testimonials[0].text}”</blockquote>
+      <section className="section disciplines-section" id="calisma-sureci">
+        <div className="container">
+          <span className="eyebrow">NASIL ÇALIŞIYORUZ?</span>
+          <h2>Karmaşık süreçleri sadeleştiriyoruz.</h2>
+          <Process />
+        </div>
+      </section>
+      <section className="section container" id="musteri-yorumlari">
+        <span className="eyebrow">MÜŞTERİ YORUMLARI</span>
+        <h2>Birlikte çalışmak nasıl?</h2>
+        <div className="testimonial-grid">
+          {s.testimonials.length ? (
+            s.testimonials.slice(0, 3).map((t, i) => (
+              <article className="testimonial-card" key={i}>
+                {t.demo && (
+                  <span className="eyebrow sample-label">
+                    Örnek yorum · kurgu
+                  </span>
+                )}
+                <blockquote>“{t.text}”</blockquote>
+                <p>
+                  {t.name}
+                  <span>{t.company}</span>
+                </p>
+              </article>
+            ))
+          ) : (
             <p>
-              {s.testimonials[0].name}
-              <span> / {s.testimonials[0].company}</span>
+              “İyi bir iş, önce birbirini anlamakla başlar.” — Contrast’ın
+              çalışma anlayışı
             </p>
-          </>
-        ) : (
-          <>
-            <blockquote>
-              “İyi bir iş, önce birbirini
-              <br />
-              anlamakla başlar.”
-            </blockquote>
-            <p>Contrast’ın çalışma anlayışı</p>
-          </>
-        )}
+          )}
+        </div>
       </section>
       <section className="section blog-section">
         <div className="container">
           <div className="section-heading">
             <div>
-              <span className="eyebrow">05 — STÜDYODAN NOTLAR</span>
+              <span className="eyebrow">İÇERİKLER</span>
               <h2>
                 Biraz fikir.
                 <br />
                 <span className="muted">Biraz ilham.</span>
               </h2>
+              <p>
+                Tasarım, marka, dijital iletişim ve prodüksiyon dünyasından
+                notlar.
+              </p>
             </div>
-            <Link className="text-link" href="/blog">
-              Tüm içerikler <Arrow diagonal />
+            <Link href="/blog" className="text-link">
+              Tüm içerikleri gör <Arrow />
             </Link>
           </div>
           <div className="article-grid">
-            {articles
-              .filter((a) => a.published)
-              .slice(0, 3)
-              .map((a) => (
-                <ArticleCard article={a} key={a.id} />
-              ))}
+            {blogSelection.map((a) => (
+              <ArticleCard article={a} key={a.id} />
+            ))}
           </div>
         </div>
       </section>
-      <Faq />
+      <Faq title="Merak edilenler." />
+      <section className="section home-quote" id="proje-formu">
+        <div className="container quote-layout">
+          <aside>
+            <span className="eyebrow">BİR FİKİRLE BAŞLAYALIM.</span>
+            <h2>
+              Bir projeniz mi var?
+              <br />
+              <span className="serif">Konuşalım.</span>
+            </h2>
+            <p>Aklınızda netleşmiş bir proje olabilir.</p>
+            <p>
+              Ya da sadece:
+              <br />
+              “Bir şeyleri değiştirmemiz gerekiyor.”
+              <br />
+              diyor olabilirsiniz.
+            </p>
+            <p>İkisi de iyi bir başlangıç.</p>
+            <h3>Projenizi anlatın.</h3>
+            {s.whatsapp && (
+              <div className="quote-whatsapp">
+                <p>Form doldurmak istemiyor musunuz?</p>
+                <Link
+                  href={whatsapp}
+                  className="text-link"
+                  {...(!whatsappDemo
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  WhatsApp’tan yazın <Arrow />
+                </Link>
+                {whatsappDemo && (
+                  <small className="sample-inline">
+                    Örnek iletişim bilgisi
+                  </small>
+                )}
+              </div>
+            )}
+          </aside>
+          <QuoteForm services={services} />
+        </div>
+      </section>
     </>
   );
 }

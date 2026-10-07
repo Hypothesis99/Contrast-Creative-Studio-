@@ -23,7 +23,7 @@ export default function About() {
       <section className="container section detail-grid">
         <div>
           <h2>
-            İyi bir iş,
+            İyi tasarım,
             <br />
             iyi bir soruyla başlar.
           </h2>

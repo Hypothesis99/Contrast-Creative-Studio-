@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { Service } from "@/lib/types";
+import { quoteTopics } from "@/lib/quote-topics";
 export function QuoteForm({
   services,
   initialService = "",
@@ -98,28 +99,36 @@ export function QuoteForm({
         </label>
       </div>
       <fieldset className="service-checkboxes">
-        <legend>Hangi alanlarda birlikte çalışalım? *</legend>
-        {services.map((s) => (
-          <label key={s.slug}>
-            <input
-              type="checkbox"
-              name="services"
-              value={s.slug}
-              defaultChecked={initialService === s.slug}
-            />
-            <span>{s.title}</span>
-          </label>
-        ))}
+        <legend>Hangi konuda çalışmak istiyorsunuz? *</legend>
+        {quoteTopics
+          .filter(
+            (topic) =>
+              topic.id === "diger" ||
+              topic.services.some((slug) =>
+                services.some((s) => s.slug === slug),
+              ),
+          )
+          .map((topic) => (
+            <label key={topic.id}>
+              <input
+                type="checkbox"
+                name="services"
+                value={`topic:${topic.id}`}
+                defaultChecked={topic.services.includes(initialService)}
+              />
+              <span>{topic.label}</span>
+            </label>
+          ))}
       </fieldset>
       <div className="form-grid">
         <label>
           Yaklaşık bütçe
-          <select name="budget" defaultValue="Birlikte belirleyelim">
-            <option>Birlikte belirleyelim</option>
-            <option>25.000 TL altı</option>
+          <select name="budget" defaultValue="Henüz belirlemedim">
+            <option>Henüz belirlemedim</option>
+            <option>10.000 – 25.000 TL</option>
             <option>25.000 – 50.000 TL</option>
             <option>50.000 – 100.000 TL</option>
-            <option>100.000 TL üzeri</option>
+            <option>100.000 TL+</option>
           </select>
         </label>
         <label>
@@ -128,7 +137,7 @@ export function QuoteForm({
         </label>
       </div>
       <label>
-        Projenizden biraz bahsedin *
+        Projenizi kısaca anlatın *
         <textarea
           name="message"
           required
@@ -163,7 +172,7 @@ export function QuoteForm({
         </p>
       )}
       <button className="button" type="submit" disabled={sending}>
-        {sending ? "Gönderiliyor…" : "Projemizi konuşalım ↗"}
+        {sending ? "Gönderiliyor…" : "Projeyi gönder →"}
       </button>
       <p className="form-footnote">
         * alanlar zorunludur. Talebiniz yalnızca projenizi değerlendirmek için

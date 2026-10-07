@@ -6,7 +6,7 @@ export function generateMetadata() {
   return {
     ...metadata(
       "Konsept Showreel",
-      "Contrast Creative Studio’nun marka, tasarım ve içerik dünyasından 20 saniyelik özgün konsept seçkisi.",
+      "Contrast Creative Studio’nun marka, tasarım ve içerik dünyasından 45 saniyelik özgün konsept seçkisi.",
       "/showreel",
       "/videos/concept-showreel-poster.jpg",
     ),
@@ -18,9 +18,9 @@ export default function Showreel() {
   return (
     <>
       <PageIntro
-        label="KONSEPT SHOWREEL / 20 SANİYE"
-        title="Bir fikrin birçok hâli."
-        description="Marka kimliği, ambalaj, sosyal medya ve ürün görsellerinden kısa bir yaratıcı seçki."
+        label="KONSEPT SHOWREEL / 45 SANİYE"
+        title="45 saniyede Contrast."
+        description="Fikirden ekrana, kameradan sokağa."
       />
       <section className="container section top-zero">
         <video
@@ -31,7 +31,7 @@ export default function Showreel() {
           poster="/videos/concept-showreel-poster.jpg"
           width="1280"
           height="720"
-          aria-label="Contrast konsept showreel, 20 saniyelik sessiz tasarım seçkisi"
+          aria-label="Contrast konsept showreel, 45 saniyelik sessiz tasarım seçkisi"
         >
           <source src="/videos/concept-showreel.mp4" type="video/mp4" />
           Tarayıcınız video oynatmayı desteklemiyor.

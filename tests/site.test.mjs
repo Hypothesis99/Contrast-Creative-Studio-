@@ -63,6 +63,7 @@ before(async () => {
   );
   legacy.settings.about = "Panelde saklanan özel ajans hikâyesi.";
   legacy.settings.email = "saved@example.org";
+  legacy.articles[0].title = "Panelde saklanan özel yazı başlığı.";
   legacy.services[0].intro = "Panelde saklanan özel hizmet tanıtımı.";
   const legacyDb = new DatabaseSync(path.join(dir, "studio.sqlite"));
   legacyDb.exec(
@@ -219,11 +220,16 @@ test("existing database upgrades once while retaining administrator content", as
   assert.equal(content.settings.about, "Panelde saklanan özel ajans hikâyesi.");
   assert.equal(content.settings.email, "saved@example.org");
   assert.equal(
+    content.articles[0].title,
+    "Panelde saklanan özel yazı başlığı.",
+  );
+  assert.equal(content.settings.experienceDemo, true);
+  assert.equal(
     content.services[0].intro,
     "Panelde saklanan özel hizmet tanıtımı.",
   );
   assert.equal(content.projects.length, 6);
-  assert.equal(content.articles.length, 8);
+  assert.equal(content.articles.length, 9);
   assert.ok(content.settings.team.length > 200);
   for (const service of content.services) {
     assert.equal(service.process.length, 4);
@@ -235,7 +241,7 @@ test("existing database upgrades once while retaining administrator content", as
   const db = new DatabaseSync(path.join(dir, "studio.sqlite"));
   assert.equal(
     db.prepare("SELECT COUNT(*) AS count FROM content_updates").get().count,
-    2,
+    3,
   );
   db.close();
   assert.equal(content.settings.showreelUrl, "/showreel");
@@ -272,7 +278,7 @@ test("sample contacts, references and playable video are labelled and safe to pr
   const showreel = await (await api("/showreel")).text();
   assert.match(showreel, /<video[^>]*controls/);
   assert.match(showreel, /\/videos\/concept-showreel.mp4/);
-  assert.match(showreel, /20 SANİYE/);
+  assert.match(showreel, /45 SANİYE/);
   assert.match(showreel, /noindex, follow/);
   const video = await api("/videos/concept-showreel.mp4", {
     headers: { Range: "bytes=0-255" },
@@ -459,6 +465,51 @@ test("domain configuration activates canonical, schema and published-only sitema
   assert.match(sitemap, /test-blog-taslagi/);
   assert.doesNotMatch(sitemap, /kurumsal-kimlik-nedir/);
   assert.doesNotMatch(sitemap, /\/admin/);
+});
+test("homepage project form records topic choices and preserves administrator edits", async () => {
+  const html = await (await api("/")).text();
+  for (const text of [
+    "Markaları düşünüyor",
+    "Tek bir marka.",
+    "RAKAMLARLA CONTRAST",
+    "Birlikte çalışmak nasıl?",
+    "Merak edilenler.",
+    "proje-formu",
+    "topic:diger",
+    "Henüz belirlemedim",
+    "45 SANİYE",
+    "Panelde saklanan özel ajans hikâyesi.",
+  ])
+    assert.ok(html.includes(text), text);
+  assert.doesNotMatch(html, /\[XX\]|\[PROJE 0|Gerçek müşteri yorumunu buraya/);
+  const form = quote();
+  form.delete("services");
+  form.append("services", "topic:marka");
+  form.append("services", "topic:diger");
+  form.set("budget", "10.000 – 25.000 TL");
+  const response = await api("/api/teklif", { method: "POST", body: form });
+  assert.equal(response.status, 201);
+  const { id } = await response.json();
+  const lead = (await (await api("/api/admin/leads")).json()).find(
+    (l) => l.id === id,
+  );
+  assert.deepEqual(lead.services, ["Marka & Tasarım", "Diğer"]);
+  assert.equal(lead.budget, "10.000 – 25.000 TL");
+  const invalid = quote();
+  invalid.set("services", "topic:unknown");
+  assert.equal(
+    (await api("/api/teklif", { method: "POST", body: invalid })).status,
+    400,
+  );
+  const updated = structuredClone(content);
+  updated.settings.experienceYears = "12";
+  updated.settings.experienceDemo = false;
+  assert.equal((await save(updated)).status, 200);
+  const stored = await (await api("/api/admin/content")).json();
+  assert.equal(stored.settings.experienceYears, "12");
+  assert.equal(stored.settings.experienceDemo, false);
+  updated.settings.experienceYears = "twelve";
+  assert.equal((await save(updated)).status, 400);
 });
 test("logout invalidates browser cookie; anonymous access remains blocked", async () => {
   const r = await api("/api/admin/logout", { method: "POST" });

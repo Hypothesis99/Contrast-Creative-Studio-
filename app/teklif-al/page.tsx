@@ -20,8 +20,8 @@ export default async function Quote({
     <>
       <PageIntro
         label="İYİ BİR FİKİRLE BAŞLAYALIM."
-        title="Aklınızda ne var?"
-        description="Bir hedef, bir ihtiyaç veya henüz şekillenmemiş bir fikir. Birlikte konuşup doğru yerden başlayalım."
+        title="Bir projeniz mi var? Konuşalım."
+        description="Aklınızda netleşmiş bir proje olabilir. Ya da sadece: “Bir şeyleri değiştirmemiz gerekiyor.” diyor olabilirsiniz. İkisi de iyi bir başlangıç."
       />
       <section className="container quote-layout section top-zero">
         <aside>

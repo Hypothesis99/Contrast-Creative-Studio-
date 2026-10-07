@@ -3,6 +3,7 @@ import { services } from "./service-content";
 import { articles } from "./article-content";
 import { projects } from "./project-content";
 import { fillSampleContent } from "./sample-content";
+import { applyBrandCopy } from "./brand-copy";
 
 export const editorialSeed: Content = {
   settings: {
@@ -33,4 +34,4 @@ export const editorialSeed: Content = {
   articles,
 };
 
-export const seed = fillSampleContent(editorialSeed);
+export const seed = applyBrandCopy(fillSampleContent(editorialSeed));

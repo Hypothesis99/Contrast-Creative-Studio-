@@ -16,7 +16,7 @@ Manuel yeniden başlatma: `bash .devcontainer/start-preview.sh`. Başlangıç ha
 
 ## İçerik seçkisi ve mevcut önizlemeyi güncelleme
 
-12 ayrı hizmet sayfasında özgün tanıtım, teslim kapsamı, hedef kitle, dört çalışma adımı ve üç sık sorulan soru bulunur. Başlangıç içerikleri ayrıca 8 SEO yazısı, 6 konsept proje, proje galerileri, ajans hikâyesi, ekip yaklaşımı, iletişim/brief rehberi ve hukuki metin taslaklarını içerir. Konsept markalar gerçek müşteri referansı veya yayınlanmış kampanya değildir.
+12 ayrı hizmet sayfasında özgün tanıtım, teslim kapsamı, hedef kitle, dört çalışma adımı ve üç sık sorulan soru bulunur. Başlangıç içerikleri ayrıca 9 SEO yazısı, 6 konsept proje, proje galerileri, ajans hikâyesi, ekip yaklaşımı, iletişim/brief rehberi ve hukuki metin taslaklarını içerir. Konsept markalar gerçek müşteri referansı veya yayınlanmış kampanya değildir.
 
 Mevcut Codespaces önizlemesinin **tarayıcı içindeki terminalinde** şu komutları çalıştırın; ardından siteyi yenileyin:
 
@@ -25,9 +25,15 @@ git pull --ff-only
 bash .devcontainer/start-preview.sh
 ```
 
-Mac'in ayrı Terminal uygulamasında değil, Codespaces editöründe çalıştırın. Önizleme için örnek telefon/WhatsApp, e-posta, Instagram adı, stüdyo adresi ve çalışma saatleri; dört konsept marka logosu, üç kurgu yorum ve 20 saniyelik yerel showreel eklidir. Örnekler sayfalarda etiketlenir. Örnek telefon ve e-posta arama/gönderim bağlantısı oluşturmaz; örnek WhatsApp ve Instagram düğmeleri iletişim sayfasına gider. Harita, örnek adres yerine Orhangazi bölgesini gösterir.
+Mac'in ayrı Terminal uygulamasında değil, Codespaces editöründe çalıştırın. Önizleme için örnek telefon/WhatsApp, e-posta, Instagram adı, stüdyo adresi ve çalışma saatleri; dört konsept marka logosu, üç kurgu yorum ve 45 saniyelik yerel showreel eklidir. Örnekler sayfalarda etiketlenir. Örnek telefon ve e-posta arama/gönderim bağlantısı oluşturmaz; örnek WhatsApp ve Instagram düğmeleri iletişim sayfasına gider. Harita, örnek adres yerine Orhangazi bölgesini gösterir.
 
 **Site ayarları** bölümünde iletişim alanını değiştirdiğinizde o alanın örnek etiketi kaldırılır. Logo ve yorumların örnek etiketleri ayrı kutularla yönetilir. Hazır video `/showreel` yolundadır; panelde showreel bağlantısını kendi HTTPS video adresinizle değiştirebilirsiniz.
+
+## Ana sayfanın yeni anlatımı
+
+Kullanıcının paylaştığı metinle hero, üç hizmet grubu, seçili projeler, rakamlar, referanslar, ajans tanıtımı, yaklaşım, dört çalışma adımı, üç yorum, blog, SSS ve ana sayfa proje formu düzenlendi. Formdaki yedi çalışma alanı sunucuda doğrulanıp çalışma alanı adıyla saklanır; “Diğer” de ayrı bir talep olarak saklanır. Yaklaşık bütçe seçenekleri 10.000–25.000, 25.000–50.000, 50.000–100.000, 100.000 TL+ ve henüz belirlemedim şeklindedir.
+
+Rakamlar yayımlanan gerçek kayıtları sayar; henüz gerçek proje/marka yokken konsept proje ve örnek marka sayıları gösterilir. Başlangıçtaki 5 yıllık deneyim açıkça örnek bilgidir; panelde gerçek yıl yazıldığında etiketi kalkar, alan boşaltıldığında yıl gizlenir. Ajans hikâyesi ve iki yazının başlık/özet güncellemesi, yönetici tarafından değiştirilmiş alanları koruyarak bir kez uygulanır.
 
 ## Geliştirme
 
@@ -47,7 +53,7 @@ npm run typecheck
 npm test
 ```
 
-`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 16 entegrasyon testi, 3 içerik güncelleme testi, 4 örnek içerik testi ve 1 derleme gizliliği kontrolü çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap, örnek etiketleri, video sunumu ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
+`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 17 entegrasyon testi, 3 içerik güncelleme testi, 4 örnek içerik testi ve 1 derleme gizliliği kontrolü çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap, örnek etiketleri, video sunumu ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
 
 ## Yönetici hesabı
 

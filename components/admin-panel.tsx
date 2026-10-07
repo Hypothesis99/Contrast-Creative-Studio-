@@ -223,6 +223,7 @@ export function AdminPanel({
       );
     }
     if (key === "showreelUrl") next.showreelDemo = value === "/showreel";
+    if (key === "experienceYears") next.experienceDemo = false;
     change({ ...content, settings: next });
   }
   function article(key: keyof Article, value: unknown) {
@@ -1058,6 +1059,16 @@ export function AdminPanel({
                   }
                 />
               ))}
+              <Field
+                label="Tasarım ve üretim deneyimi (yıl)"
+                value={content.settings.experienceYears ?? ""}
+                onChange={(v) => settings("experienceYears", v)}
+                hint={
+                  content.settings.experienceDemo
+                    ? "Örnek bilgi. Gerçek yılı yazdığınızda örnek etiketi kaldırılır."
+                    : "Boş bırakılırsa ana sayfada deneyim yılı gösterilmez."
+                }
+              />
               <Field
                 label="Ajans hikâyesi"
                 value={content.settings.about}
