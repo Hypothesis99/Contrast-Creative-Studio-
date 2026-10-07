@@ -1,0 +1,329 @@
+{
+  "settings": {
+    "name": "Contrast Creative Studio",
+    "tagline": "İyi fikirler. Güçlü kontrastlar.",
+    "description": "Bursa ve Orhangazi için marka tasarımı, dijital iletişim ve prodüksiyon. Birlikte fark yaratan işler üretelim.",
+    "phone": "",
+    "whatsapp": "",
+    "email": "",
+    "instagram": "",
+    "address": "",
+    "hours": "",
+    "mapUrl": "",
+    "siteUrl": "",
+    "gaId": "",
+    "pixelId": "",
+    "searchConsoleId": "",
+    "showreelUrl": "",
+    "about": "Contrast, markaların anlatacak bir hikâyesi olduğuna inanır. Tasarımı, stratejiyi ve yaratıcı üretimi aynı masada buluştururuz. Önce dinler, sonra sorular sorar, en sonunda birlikte doğru fikri görünür hâle getiririz.",
+    "team": "",
+    "clients": [],
+    "testimonials": []
+  },
+  "services": [
+    {
+      "slug": "sosyal-medya-yonetimi",
+      "title": "Sosyal medya yönetimi",
+      "short": "Markanızın sesini her gün doğru kitleyle buluşturuyoruz.",
+      "intro": "Markanızın sesini her gün doğru kitleyle buluşturuyoruz. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "İçerik stratejisi",
+        "Aylık içerik planı",
+        "Topluluk yönetimi",
+        "Performans raporları"
+      ],
+      "group": "Dijital",
+      "number": "01"
+    },
+    {
+      "slug": "grafik-tasarim",
+      "title": "Grafik tasarım",
+      "short": "Bir bakışta anlatan, akılda kalan tasarımlar.",
+      "intro": "Bir bakışta anlatan, akılda kalan tasarımlar. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Kampanya tasarımları",
+        "Dijital ve basılı içerikler",
+        "Ambalaj tasarımı",
+        "Sunum ve katalog"
+      ],
+      "group": "Tasarım",
+      "number": "02"
+    },
+    {
+      "slug": "kurumsal-kimlik",
+      "title": "Kurumsal kimlik",
+      "short": "Markanızın bütün temas noktalarında tek ve güçlü bir karakter.",
+      "intro": "Markanızın bütün temas noktalarında tek ve güçlü bir karakter. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Marka stratejisi",
+        "Görsel dil",
+        "Marka kılavuzu",
+        "Kurumsal uygulamalar"
+      ],
+      "group": "Tasarım",
+      "number": "03"
+    },
+    {
+      "slug": "logo-tasarimi",
+      "title": "Logo tasarımı",
+      "short": "Hikâyenizi tek bir işarete dönüştürüyoruz.",
+      "intro": "Hikâyenizi tek bir işarete dönüştürüyoruz. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Marka keşfi",
+        "Logo konseptleri",
+        "Tipografi ve renk",
+        "Kullanım kılavuzu"
+      ],
+      "group": "Tasarım",
+      "number": "04"
+    },
+    {
+      "slug": "web-sitesi-tasarimi",
+      "title": "Web sitesi tasarımı",
+      "short": "İyi görünen, hızlı çalışan ve işinize katkı sağlayan siteler.",
+      "intro": "İyi görünen, hızlı çalışan ve işinize katkı sağlayan siteler. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Arayüz ve kullanıcı deneyimi",
+        "Mobil uyum",
+        "İçerik yönetimi",
+        "Teknik SEO"
+      ],
+      "group": "Dijital",
+      "number": "05"
+    },
+    {
+      "slug": "fotograf-cekimi",
+      "title": "Fotoğraf çekimi",
+      "short": "Ürününüzün, mekânınızın ve markanızın en iyi hâli.",
+      "intro": "Ürününüzün, mekânınızın ve markanızın en iyi hâli. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": ["Ürün fotoğrafı", "Mekân çekimi", "Lifestyle çekim", "Retouch"],
+      "group": "Prodüksiyon",
+      "number": "06"
+    },
+    {
+      "slug": "video-produksiyon",
+      "title": "Video prodüksiyon",
+      "short": "Bir fikri, izlenen bir hikâyeye dönüştürüyoruz.",
+      "intro": "Bir fikri, izlenen bir hikâyeye dönüştürüyoruz. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Konsept ve senaryo",
+        "Çekim planı",
+        "Prodüksiyon",
+        "Kurgu ve renk"
+      ],
+      "group": "Prodüksiyon",
+      "number": "07"
+    },
+    {
+      "slug": "reels-reklam-filmi",
+      "title": "Reels / reklam filmi",
+      "short": "İlk saniyeden itibaren dikkat çeken kısa hikâyeler.",
+      "intro": "İlk saniyeden itibaren dikkat çeken kısa hikâyeler. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Dikey video",
+        "Reklam senaryosu",
+        "Kısa film",
+        "Platform uyarlamaları"
+      ],
+      "group": "Prodüksiyon",
+      "number": "08"
+    },
+    {
+      "slug": "drone-cekimi",
+      "title": "Drone çekimi",
+      "short": "Hikâyenize yeni bir açı kazandırıyoruz.",
+      "intro": "Hikâyenize yeni bir açı kazandırıyoruz. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Mekân ve tesis çekimi",
+        "Havadan görüntüleme",
+        "Çekim planlaması",
+        "Kurgu"
+      ],
+      "group": "Prodüksiyon",
+      "number": "09"
+    },
+    {
+      "slug": "google-ads",
+      "title": "Google Ads",
+      "short": "Sizi arayan müşterilerle doğru anda buluşun.",
+      "intro": "Sizi arayan müşterilerle doğru anda buluşun. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Arama kampanyaları",
+        "Anahtar kelime araştırması",
+        "Dönüşüm ölçümü",
+        "Optimizasyon"
+      ],
+      "group": "Dijital",
+      "number": "10"
+    },
+    {
+      "slug": "meta-ads",
+      "title": "Meta Ads",
+      "short": "Doğru fikir, doğru kitle ve ölçülebilir kampanyalar.",
+      "intro": "Doğru fikir, doğru kitle ve ölçülebilir kampanyalar. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Kitle stratejisi",
+        "Kreatif testleri",
+        "Instagram / Facebook reklamları",
+        "Performans takibi"
+      ],
+      "group": "Dijital",
+      "number": "11"
+    },
+    {
+      "slug": "baski-tabela-acik-hava",
+      "title": "Baskı / tabela / açık hava",
+      "short": "Dijitalin ötesinde, şehrin içinde güçlü bir görünürlük.",
+      "intro": "Dijitalin ötesinde, şehrin içinde güçlü bir görünürlük. İşe markanızı ve hedefinizi anlayarak başlıyoruz. İhtiyacınıza göre bir yol haritası oluşturuyor, süreci açık iletişimle yürütüyoruz.",
+      "items": [
+        "Baskı tasarımları",
+        "Tabela tasarımı",
+        "Açık hava kampanyaları",
+        "Üretim koordinasyonu"
+      ],
+      "group": "Tasarım",
+      "number": "12"
+    }
+  ],
+  "projects": [
+    {
+      "id": "p-1",
+      "slug": "forma-marka-kimligi",
+      "title": "Sade bir fikir. Güçlü bir kimlik.",
+      "client": "FORMA",
+      "category": "Marka kimliği",
+      "image": "/images/forma.svg",
+      "year": "2026",
+      "summary": "Mimari çizgilerden doğan, yalın ve kendinden emin bir marka dünyası.",
+      "need": "Yeni bir mimarlık markası için farklı mecralarda tutarlı çalışacak bir görsel dil tasarlamak.",
+      "solution": "Modüler bir işaret, güçlü tipografi ve sıcak bir renk paletiyle bütünlüklü bir kimlik sistemi kurgulandı.",
+      "before": "Dağınık görsel öğeler ve henüz tanımlanmamış bir marka dili.",
+      "after": "Dijital ve basılı uygulamalar için tutarlı bir konsept kimlik.",
+      "gallery": ["/images/forma.svg", "/images/forma-detail.svg"],
+      "videoUrl": "",
+      "demo": true,
+      "published": true
+    },
+    {
+      "id": "p-2",
+      "slug": "mora-ambalaj-tasarimi",
+      "title": "Doğadan ilham, rafta fark.",
+      "client": "MORA",
+      "category": "Ambalaj & tasarım",
+      "image": "/images/mora.svg",
+      "year": "2026",
+      "summary": "Doğal bakım ürünleri için sakin, dokunsal ve çağdaş bir ambalaj konsepti.",
+      "need": "Ürün ailesinin ortak karakterini korurken ürünleri kolay ayırt edilebilir kılmak.",
+      "solution": "Botanik bir palet, yalın etiket sistemi ve seri boyunca tekrar eden tipografik bir hiyerarşi tasarlandı.",
+      "before": "Ürün ailesi için ortak görsel sistem ihtiyacı.",
+      "after": "Kolay okunabilen, farklı ürünlere uyarlanabilen bir ambalaj konsepti.",
+      "gallery": ["/images/mora.svg"],
+      "videoUrl": "",
+      "demo": true,
+      "published": true
+    },
+    {
+      "id": "p-3",
+      "slug": "pulse-dijital-kampanya",
+      "title": "Ritmini bul. Sesini duyur.",
+      "client": "PULSE",
+      "category": "Dijital kampanya",
+      "image": "/images/pulse.svg",
+      "year": "2026",
+      "summary": "Hareketli, cesur ve sosyal mecralar için tasarlanmış bir kampanya fikri.",
+      "need": "Yeni bir etkinlik konseptini dijital mecralarda tutarlı ve dikkat çekici anlatmak.",
+      "solution": "Dinamik tipografi, kontrast renkler ve farklı ekran oranlarına uyarlanan bir tasarım sistemi oluşturuldu.",
+      "before": "Birbirinden bağımsız kampanya görselleri.",
+      "after": "Sosyal medya ve dijital ekranlar için ortak bir kampanya dili.",
+      "gallery": ["/images/pulse.svg"],
+      "videoUrl": "",
+      "demo": true,
+      "published": true
+    },
+    {
+      "id": "p-4",
+      "slug": "atelier-web-deneyimi",
+      "title": "Dijitalde yeni bir perspektif.",
+      "client": "ATELIER",
+      "category": "Web tasarımı",
+      "image": "/images/atelier.svg",
+      "year": "2026",
+      "summary": "Bir tasarım stüdyosu için içerik odaklı, ferah bir dijital deneyim konsepti.",
+      "need": "Projelerin öne çıktığı ve ziyaretçiyi kolayca iletişime taşıyan bir site deneyimi.",
+      "solution": "Editoryal bir grid, sade gezinme ve proje hikâyelerine alan açan bir arayüz tasarlandı.",
+      "before": "Projelerin ve iletişim bilgilerinin dağınık sunumu.",
+      "after": "Mobil düşünülerek kurgulanmış, açık bir içerik hiyerarşisi.",
+      "gallery": ["/images/atelier.svg"],
+      "videoUrl": "",
+      "demo": true,
+      "published": true
+    }
+  ],
+  "articles": [
+    {
+      "id": "a-1",
+      "slug": "kurumsal-kimlik-nedir",
+      "title": "Bir logodan fazlası: kurumsal kimlik",
+      "category": "Marka & tasarım",
+      "summary": "Markanızın her yerde aynı dili konuşması neden bu kadar önemli?",
+      "image": "/images/forma-detail.svg",
+      "date": "2026-10-07",
+      "seoTitle": "Kurumsal Kimlik Nedir? | Contrast Creative Studio",
+      "seoDescription": "Kurumsal kimliğin bileşenleri, marka kılavuzu ve tutarlı bir görsel dil oluşturmak için temel adımlar.",
+      "published": true,
+      "body": "# Kurumsal kimlik nedir?\n\nKurumsal kimlik, bir markanın görsel ve sözel karakterini ortak bir sistemde toplar. Logo, renkler ve yazı karakterleri bu sistemin bir parçasıdır; kullanılan dil, fotoğraf yaklaşımı ve uygulama kuralları da aynı bütünü tamamlar.\n\n## Tutarlılık neden önemli?\n\nBir markayı sosyal medyada, ambalajda veya bir tabelada gördüğünüzde aynı karakteri hissetmeniz gerekir. Tutarlı bir kimlik, her yeni içerikte sıfırdan karar vermek yerine ortak bir yön sağlar.\n\n## Neler içerir?\n\n- Logo ve alternatif kullanımlar\n- Renk paleti ve tipografi\n- Görsel dil ve fotoğraf yaklaşımı\n- Dijital ve basılı uygulamalar\n- Marka kullanım kılavuzu\n\n## Süreç nereden başlamalı?\n\nÖnce markanın hedefi, kitlesi ve farklılaşma noktası anlaşılmalıdır. Tasarım kararları bu çerçeve üzerine kurulursa ortaya yalnızca güzel görünen bir logo değil, işlevsel bir kimlik çıkar.\n\nYeni bir marka oluşturuyor veya mevcut kimliğinizi yeniliyorsanız, ihtiyacınızı birlikte değerlendirebiliriz."
+    },
+    {
+      "id": "a-2",
+      "slug": "bursa-reklam-ajansi-secerken",
+      "title": "Doğru ajansı seçerken sorulacak 5 soru",
+      "category": "Strateji",
+      "summary": "Bursa ve Orhangazi’de bir yaratıcı partner ararken nereden başlamalı?",
+      "image": "/images/studio.svg",
+      "date": "2026-10-07",
+      "seoTitle": "Bursa Reklam Ajansı Seçerken Nelere Dikkat Edilmeli?",
+      "seoDescription": "Bursa ve Orhangazi’de reklam ajansı seçimi için portfolyo, süreç, kapsam, iletişim ve ölçüm kriterleri.",
+      "published": true,
+      "body": "# Doğru ajans nasıl seçilir?\n\nBir ajans seçerken yalnızca fiyatı karşılaştırmak yeterli değildir. Hedefinizi anlayan, işin kapsamını netleştiren ve süreç boyunca açık iletişim kuran bir partner aramak daha sağlıklı bir başlangıçtır.\n\n## 1. Benzer ihtiyaçları anlamış mı?\n\nPortfolyoya sadece görsel kalite açısından bakmayın. Projelerde hangi ihtiyaçların ele alındığını ve çözümün nasıl geliştirildiğini sorun.\n\n## 2. Kapsam net mi?\n\nTeslimler, revizyonlar, süre ve sorumluluklar yazılı olarak belirlenmeli. Böylece teklifleri aynı çerçevede değerlendirebilirsiniz.\n\n## 3. Süreç nasıl işleyecek?\n\nBirlikte çalışacağınız kişileri, iletişim düzenini ve onay adımlarını öğrenin.\n\n## 4. Başarı nasıl değerlendirilecek?\n\nBir kimlik tasarımı ile reklam kampanyasının başarı ölçütleri aynı değildir. Projeye uygun hedefler belirleyin; doğrulanamayan performans vaatlerini sorgulayın.\n\n## 5. Yerel bağlamı biliyor mu?\n\nBursa ve Orhangazi’de hedef kitlenin alışkanlıklarını ve işletmenizin çalışma biçimini anlamak, doğru iletişimin kurulmasına yardımcı olur."
+    },
+    {
+      "id": "a-3",
+      "slug": "urun-fotografinin-satisa-etkisi",
+      "title": "Ürününüzün ilk izlenimi: fotoğraf",
+      "category": "Prodüksiyon",
+      "summary": "İyi bir ürün fotoğrafının görevi sadece güzel görünmek değildir.",
+      "image": "/images/mora.svg",
+      "date": "2026-10-07",
+      "seoTitle": "Profesyonel Ürün Fotoğrafının Satışa Etkisi",
+      "seoDescription": "Ürün fotoğraflarında ışık, tutarlılık, detay ve kullanım bağlamının müşteri deneyimine katkısı.",
+      "published": true,
+      "body": "# Fotoğraf bir bilgi aracıdır\n\nOnline alışverişte müşteriniz ürününüze dokunamaz. Fotoğraf; malzemeyi, rengi, boyutu ve kullanım biçimini anlatmanın en doğrudan yollarından biridir.\n\n## Önce doğru bilgi\n\nÜrünün gerçek rengini ve önemli detaylarını göstermeyi hedefleyin. Aşırı düzenleme, ürün ulaştığında beklenti farkı yaratabilir.\n\n## Birlikte çalışan kareler\n\nAna görseli detay çekimleri ve kullanım bağlamını gösteren karelerle destekleyin. Tüm seri için ortak bir ışık ve kadraj dili kurun.\n\n## Sonucu nasıl değerlendirirsiniz?\n\nFotoğraf tek başına satış artışı garantisi vermez. Ürün sayfasının diğer unsurlarıyla birlikte değerlendirin; mümkünse farklı görselleri kontrollü bir testle karşılaştırın."
+    },
+    {
+      "id": "a-4",
+      "slug": "logo-tasarimi-fiyatlarini-ne-belirler",
+      "title": "Logo fiyatını ne belirler?",
+      "category": "Marka & tasarım",
+      "summary": "Aynı isimle sunulan iki logo teklifinin kapsamı neden çok farklı olabilir?",
+      "image": "/images/pulse.svg",
+      "date": "2026-10-07",
+      "published": true,
+      "seoTitle": "Logo Tasarımı Fiyatlarını Ne Belirler?",
+      "seoDescription": "Logo tasarımı fiyatlarını etkileyen kapsam, araştırma, revizyon, kullanım hakkı ve teslim dosyalarını öğrenin.",
+      "body": "# Tek bir fiyat, tek bir kapsam değildir\n\nLogo tasarımında fiyatı değerlendirmek için önce işin kapsamını anlamak gerekir. Araştırma, konsept geliştirme, revizyon, uygulama ve teslim dosyaları farklı tekliflerde farklı şekilde ele alınabilir.\n\n## Tasarım öncesi araştırma\n\nMarkanın kitlesi, rakipleri ve kullanım alanları anlaşılmadan verilen bir görsel karar uzun vadede yeterli olmayabilir. Bu keşif çalışmasının kapsamını sorun.\n\n## Teslimde neler var?\n\n- Vektörel dosyalar ve farklı renk sürümleri\n- Açık ve koyu zeminde kullanım\n- Küçük boyutta okunabilirlik\n- Kullanım kılavuzu\n- Lisans ve kullanım hakkı koşulları\n\n## Revizyon ve zamanlama\n\nKaç konsept ve revizyon sunulacağı, geri bildirimin nasıl alınacağı ve teslim süresi yazılı olarak açıklanmalıdır. Acil bir teslim ile kapsamlı bir kimlik projesi aynı çerçevede değerlendirilmez.\n\n## Sağlıklı bir karşılaştırma\n\nYalnızca fiyat rakamına bakmak yerine kapsamı ve sorumlulukları karşılaştırın. Logo ile bütün bir kurumsal kimlik sisteminin farklı işler olduğunu unutmayın. Size uygun kapsamı belirlemek için projenizi birlikte konuşabiliriz."
+    },
+    {
+      "id": "a-5",
+      "slug": "sosyal-medya-yonetimi-nasil-yapilir",
+      "title": "Sosyal medya bir paylaşım takvimiyle bitmez.",
+      "category": "Dijital iletişim",
+      "summary": "Bir içerik planını markanın hedeflerine bağlayan temel adımlar.",
+      "image": "/images/atelier.svg",
+      "date": "2026-10-07",
+      "published": true,
+      "seoTitle": "Sosyal Medya Yönetimi Nasıl Yapılır? | Contrast Creative Studio",
+      "seoDescription": "Sosyal medya yönetiminde hedef, kitle, içerik planı, topluluk yönetimi ve performans değerlendirmesi için pratik bir çerçeve.",
+      "body": "# Önce hedefi tanımlayın\n\nSosyal medya yönetimi yalnızca belirli aralıklarla görsel paylaşmak değildir. Marka bilinirliği, ürün tanıtımı, topluluk oluşturma veya talep toplama gibi hedeflerden hangisine öncelik verdiğinizi belirleyin.\n\n## Kimi dinliyorsunuz?\n\nKitlenizin sorularını, beklentilerini ve kullandığı platformları anlamaya çalışın. İçeriği sadece markanın söylemek istediğine göre değil, ziyaretçinin ihtiyacına göre de planlayın.\n\n## İçerik sütunları oluşturun\n\n- Ürün ve hizmet bilgisi\n- Faydalı açıklamalar ve sık sorulan sorular\n- Markanın üretim süreci\n- Gerçek müşteri deneyimleri\n\n## Plan ve esneklik\n\nBir aylık plan üretim disiplinini sağlar. Ancak gündemi, müşteri sorularını ve sonuçları değerlendirmek için planda alan bırakın. Fotoğraf, video ve metin birbirini tamamlasın.\n\n## Sonuçları anlamlandırın\n\nBeğeni sayısı tek başına başarı değildir. Hedefe uygun olarak nitelikli ziyaretleri, soruları, talepleri veya topluluk etkileşimini inceleyin. Organik içerik ile ücretli reklamın farklı rollerini birlikte planlayın.\n\nBursa ve Orhangazi’deki işletmeler için yerel bağlamı anlamak da doğru içerik kararlarına katkı sağlar."
+    }
+  ]
+}

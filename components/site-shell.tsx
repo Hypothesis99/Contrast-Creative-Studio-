@@ -20,7 +20,7 @@ export function Brand() {
       aria-label="Contrast Creative Studio ana sayfa"
     >
       <span>
-        contrast<span className="brand-dot">®</span>
+        contrast<span className="brand-dot">✳</span>
       </span>
       <small>CREATIVE STUDIO</small>
     </Link>
@@ -111,6 +111,44 @@ export function SiteShell({
               <Link href="/iletisim">
                 İletişime geçin <Arrow diagonal />
               </Link>
+            </div>
+          </div>
+          <div className="footer-links">
+            <div>
+              <span className="eyebrow light">STÜDYO</span>
+              <Link href="/hakkimizda">Hakkımızda</Link>
+              <Link href="/projeler">Projeler</Link>
+              <Link href="/referanslar">Referanslar</Link>
+              <Link href="/blog">Blog & içerikler</Link>
+            </div>
+            <div>
+              <span className="eyebrow light">MARKA & TASARIM</span>
+              <Link href="/hizmetler/kurumsal-kimlik">Kurumsal kimlik</Link>
+              <Link href="/hizmetler/logo-tasarimi">Logo tasarımı</Link>
+              <Link href="/hizmetler/grafik-tasarim">Grafik tasarım</Link>
+              <Link href="/hizmetler/baski-tabela-acik-hava">
+                Baskı & tabela
+              </Link>
+            </div>
+            <div>
+              <span className="eyebrow light">DİJİTAL</span>
+              <Link href="/hizmetler/sosyal-medya-yonetimi">
+                Sosyal medya yönetimi
+              </Link>
+              <Link href="/hizmetler/web-sitesi-tasarimi">
+                Web sitesi tasarımı
+              </Link>
+              <Link href="/hizmetler/google-ads">Google Ads</Link>
+              <Link href="/hizmetler/meta-ads">Meta Ads</Link>
+            </div>
+            <div>
+              <span className="eyebrow light">PRODÜKSİYON</span>
+              <Link href="/hizmetler/fotograf-cekimi">Fotoğraf çekimi</Link>
+              <Link href="/hizmetler/video-produksiyon">Video prodüksiyon</Link>
+              <Link href="/hizmetler/reels-reklam-filmi">
+                Reels & reklam filmi
+              </Link>
+              <Link href="/hizmetler/drone-cekimi">Drone çekimi</Link>
             </div>
           </div>
           <div className="footer-bottom">

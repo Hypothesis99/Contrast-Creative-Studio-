@@ -2,6 +2,8 @@ import { getContent } from "@/lib/store";
 import { metadata } from "@/lib/seo";
 import { PageIntro } from "@/components/cards";
 import { Star } from "@/components/icons";
+import { Paragraphs, Process, Faq } from "@/components/editorial";
+import { disciplines } from "@/lib/studio-content";
 export function generateMetadata() {
   return metadata(
     "Hakkımızda",
@@ -25,7 +27,7 @@ export default function About() {
             <br />
             iyi bir soruyla başlar.
           </h2>
-          <p className="large-copy">{s.about}</p>
+          <Paragraphs text={s.about} />
         </div>
         <div className="about-art">
           <Star />
@@ -40,39 +42,54 @@ export default function About() {
       </section>
       <section className="container section">
         <span className="eyebrow">ÇALIŞMA ANLAYIŞIMIZ</span>
-        <div className="process-grid">
-          {[
-            ["01", "Önce dinleriz.", "İhtiyacı anlamadan çözüme atlamayız."],
-            [
-              "02",
-              "Açık konuşuruz.",
-              "Kapsamı, süreci ve beklentiyi birlikte netleştiririz.",
-            ],
-            [
-              "03",
-              "Birlikte üretiriz.",
-              "Sizi sürecin bir parçası olarak görürüz.",
-            ],
-            [
-              "04",
-              "Detayı önemseriz.",
-              "Fikir kadar uygulamanın niteliğine de odaklanırız.",
-            ],
-          ].map(([n, t, d]) => (
-            <div key={n}>
-              <span>{n}</span>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </div>
-          ))}
-        </div>
+        <Process />
         {s.team && (
           <div className="team-copy">
             <h2>Aynı masada, farklı yetenekler.</h2>
-            <p>{s.team}</p>
+            <Paragraphs text={s.team} />
           </div>
         )}
       </section>
+      <section className="section disciplines-section">
+        <div className="container">
+          <span className="eyebrow">AYNI HEDEF, FARKLI DİSİPLİNLER</span>
+          <h2>
+            Fikri birlikte
+            <br />
+            tamamlarız.
+          </h2>
+          <Process steps={disciplines} />
+        </div>
+      </section>
+      <section className="container section detail-grid">
+        <div>
+          <span className="eyebrow">NEDEN CONTRAST?</span>
+          <h2>
+            Güzel görünenin
+            <br />
+            ötesini düşünürüz.
+          </h2>
+        </div>
+        <div>
+          <h3>İhtiyaca göre çalışırız.</h3>
+          <p>
+            Önce hangi sorunu çözdüğümüzü belirleriz. Hizmetleri bir liste
+            olarak değil, markanızın hedefini destekleyen parçalar olarak bir
+            araya getiririz.
+          </p>
+          <h3>Süreci açık tutarız.</h3>
+          <p>
+            Teslimler, onay aşamaları ve sorumluluklar baştan belli olur.
+            Yaratıcı kararlara eşlik eden gerekçeleri de paylaşırız.
+          </p>
+          <h3>Detayı sona bırakmayız.</h3>
+          <p>
+            Bir logonun küçük boyutta okunmasından bir formun mobil kullanımına
+            kadar uygulamanın gerçek koşullarını düşünürüz.
+          </p>
+        </div>
+      </section>
+      <Faq />
     </>
   );
 }

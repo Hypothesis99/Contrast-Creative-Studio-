@@ -47,7 +47,7 @@ export default async function Article({
         />
       )}
       <PageIntro
-        label={`${a.category} / ${new Date(`${a.date}T12:00:00Z`).toLocaleDateString("tr-TR")}`}
+        label={`${a.category} / ${new Date(`${a.date}T12:00:00Z`).toLocaleDateString("tr-TR")} / ${Math.max(1, Math.ceil(a.body.split(/\s+/).length / 200))} DK OKUMA`}
         title={a.title}
         description={a.summary}
       />

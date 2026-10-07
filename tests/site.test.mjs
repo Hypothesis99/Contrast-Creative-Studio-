@@ -2,7 +2,8 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, readFileSync } from "node:fs";
+import { DatabaseSync } from "node:sqlite";
 import os from "node:os";
 import path from "node:path";
 import net from "node:net";
@@ -57,6 +58,20 @@ function quote() {
 }
 before(async () => {
   dir = mkdtempSync(path.join(os.tmpdir(), "contrast-test-"));
+  const legacy = JSON.parse(
+    readFileSync(new URL("../lib/content-v1.json", import.meta.url), "utf8"),
+  );
+  legacy.settings.about = "Panelde saklanan özel ajans hikâyesi.";
+  legacy.settings.email = "saved@example.org";
+  legacy.services[0].intro = "Panelde saklanan özel hizmet tanıtımı.";
+  const legacyDb = new DatabaseSync(path.join(dir, "studio.sqlite"));
+  legacyDb.exec(
+    "CREATE TABLE content (id INTEGER PRIMARY KEY, value TEXT NOT NULL)",
+  );
+  legacyDb
+    .prepare("INSERT INTO content(id,value) VALUES(1,?)")
+    .run(JSON.stringify(legacy));
+  legacyDb.close();
   const probe = net.createServer();
   await new Promise((r) => probe.listen(0, "127.0.0.1", r));
   const port = probe.address().port;
@@ -198,6 +213,58 @@ test("admin login creates protected session and reads content", async () => {
   cookie = header.split(";")[0];
   content = await (await api("/api/admin/content")).json();
   assert.equal(content.services.length, 12);
+});
+test("existing database upgrades once while retaining administrator content", async () => {
+  assert.equal(content.settings.about, "Panelde saklanan özel ajans hikâyesi.");
+  assert.equal(content.settings.email, "saved@example.org");
+  assert.equal(
+    content.services[0].intro,
+    "Panelde saklanan özel hizmet tanıtımı.",
+  );
+  assert.equal(content.projects.length, 6);
+  assert.equal(content.articles.length, 8);
+  assert.ok(content.settings.team.length > 200);
+  for (const service of content.services) {
+    assert.equal(service.process.length, 4);
+    assert.equal(service.faq.length, 3);
+    const html = await (await api(`/hizmetler/${service.slug}`)).text();
+    assert.match(html, /Kimler için/);
+    assert.match(html, /<details/);
+  }
+  const db = new DatabaseSync(path.join(dir, "studio.sqlite"));
+  assert.equal(
+    db.prepare("SELECT COUNT(*) AS count FROM content_updates").get().count,
+    1,
+  );
+  db.close();
+  for (const article of content.articles) {
+    assert.ok(article.body.length > 2000, article.slug);
+    assert.equal((await api(`/blog/${article.slug}`)).status, 200);
+  }
+  for (const project of content.projects) {
+    assert.equal((await api(`/projeler/${project.slug}`)).status, 200);
+    for (const image of [project.image, ...project.gallery])
+      assert.equal((await api(image)).status, 200, image);
+  }
+});
+test("service FAQs and workflow edits persist and malformed data is rejected", async () => {
+  content.services[0].faq[0].answer = "Panelden güncellenen cevap.";
+  content.services[0].process[0].description =
+    "Panelden güncellenen çalışma adımı.";
+  assert.equal((await save(content)).status, 200);
+  const stored = await (await api("/api/admin/content")).json();
+  assert.equal(stored.services[0].faq[0].answer, "Panelden güncellenen cevap.");
+  assert.equal(
+    stored.services[0].process[0].description,
+    "Panelden güncellenen çalışma adımı.",
+  );
+  const html = await (
+    await api(`/hizmetler/${content.services[0].slug}`)
+  ).text();
+  assert.match(html, /Panelden güncellenen cevap/);
+  const invalid = structuredClone(content);
+  invalid.services[0].faq[0].answer = "";
+  assert.equal((await save(invalid)).status, 400);
 });
 test("Codespaces accepts its own HTTPS origin and rejects other preview origins", async () => {
   const previewOrigin = "https://contrast-integration-3000.app.github.dev";

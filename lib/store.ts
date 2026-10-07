@@ -3,10 +3,15 @@ import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { seed } from "./seed";
+import previousContent from "./content-v1.json";
+import { mergeContentUpdate } from "./content-update";
 import type { Content, Lead } from "./types";
+// Resolve mutable state at runtime, so database, upload and log writes do not
+// become Turbopack source dependencies and trigger repeated page reloads.
+const runtimeCwd = process.cwd.bind(process);
 export const dataDir = path.resolve(
   /* turbopackIgnore: true */ process.env.CONTRAST_DATA_DIR ||
-    path.join(process.cwd(), ".data"),
+    path.join(runtimeCwd(), ".data"),
 );
 let db: DatabaseSync;
 function database() {
@@ -14,11 +19,37 @@ function database() {
     mkdirSync(dataDir, { recursive: true, mode: 0o700 });
     db = new DatabaseSync(path.join(dataDir, "studio.sqlite"));
     db.exec(
-      "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS content (id INTEGER PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL)",
+      "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS content (id INTEGER PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL); CREATE TABLE IF NOT EXISTS content_updates (id TEXT PRIMARY KEY)",
     );
     db.prepare("INSERT OR IGNORE INTO content(id,value) VALUES(1,?)").run(
       JSON.stringify(seed),
     );
+    db.exec("BEGIN IMMEDIATE");
+    try {
+      const version = "editorial-2026-10-v2";
+      if (
+        !db.prepare("SELECT id FROM content_updates WHERE id=?").get(version)
+      ) {
+        const row = db
+          .prepare("SELECT value FROM content WHERE id=1")
+          .get() as { value: string };
+        const updated = mergeContentUpdate(
+          JSON.parse(row.value),
+          previousContent,
+          seed,
+        );
+        db.prepare("UPDATE content SET value=? WHERE id=1").run(
+          JSON.stringify(updated),
+        );
+        db.prepare("INSERT INTO content_updates(id) VALUES(?)").run(version);
+      }
+      db.exec("COMMIT");
+    } catch (error) {
+      db.exec("ROLLBACK");
+      db.close();
+      db = undefined!;
+      throw error;
+    }
   }
   return db;
 }

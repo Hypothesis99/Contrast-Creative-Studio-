@@ -4,6 +4,7 @@ import { getContent } from "@/lib/store";
 import { metadata, JsonLd, publicUrl } from "@/lib/seo";
 import { PageIntro, ProjectCard } from "@/components/cards";
 import { Arrow } from "@/components/icons";
+import { Process, Faq, Paragraphs } from "@/components/editorial";
 export async function generateMetadata({
   params,
 }: {
@@ -57,7 +58,13 @@ export default async function Service({
             <br />
             Doğru fikri üretelim.
           </h2>
-          <p>{s.intro}</p>
+          <Paragraphs text={s.intro} />
+          {s.audience && (
+            <div className="audience-copy">
+              <h3>Kimler için?</h3>
+              <p>{s.audience}</p>
+            </div>
+          )}
           <Link href={`/teklif-al?hizmet=${s.slug}`} className="button">
             Bu hizmet için teklif al <Arrow diagonal />
           </Link>
@@ -74,37 +81,9 @@ export default async function Service({
       </section>
       <section className="container section">
         <span className="eyebrow">NASIL ÇALIŞIYORUZ?</span>
-        <div className="process-grid">
-          {[
-            [
-              "01",
-              "Dinleriz",
-              "Markanızı, hedefinizi ve beklentinizi tanırız.",
-            ],
-            [
-              "02",
-              "Düşünürüz",
-              "İhtiyacınıza uygun stratejiyi ve yaratıcı yönü belirleriz.",
-            ],
-            [
-              "03",
-              "Üretiriz",
-              "Fikri somutlaştırır, birlikte değerlendiririz.",
-            ],
-            [
-              "04",
-              "Geliştiririz",
-              "Teslimden sonra da sonraki adımı birlikte düşünürüz.",
-            ],
-          ].map(([n, t, d]) => (
-            <div key={n}>
-              <span>{n}</span>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </div>
-          ))}
-        </div>
+        <Process steps={s.process?.length ? s.process : undefined} />
       </section>
+      <Faq entries={s.faq ?? []} title={`${s.title} hakkında.`} />
       <section className="container section">
         <div className="section-heading">
           <h2>

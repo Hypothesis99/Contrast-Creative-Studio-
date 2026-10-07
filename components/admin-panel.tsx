@@ -844,6 +844,96 @@ export function AdminPanel({
                   area
                   hint="Her satıra bir iş yazın."
                 />
+                <Field
+                  label="Kimler için?"
+                  value={s.audience || ""}
+                  onChange={(v) => service("audience", v)}
+                  area
+                />
+                <h3>Çalışma adımları</h3>
+                {(s.process || []).map((step, index) => (
+                  <div className="admin-inline-group" key={index}>
+                    <Field
+                      label={`${index + 1}. adım başlığı`}
+                      value={step.title}
+                      onChange={(v) =>
+                        service(
+                          "process",
+                          s.process?.map((item, i) =>
+                            i === index ? { ...item, title: v } : item,
+                          ),
+                        )
+                      }
+                    />
+                    <Field
+                      label={`${index + 1}. adım açıklaması`}
+                      value={step.description}
+                      onChange={(v) =>
+                        service(
+                          "process",
+                          s.process?.map((item, i) =>
+                            i === index ? { ...item, description: v } : item,
+                          ),
+                        )
+                      }
+                      area
+                    />
+                  </div>
+                ))}
+                <h3>Sık sorulan sorular</h3>
+                {(s.faq || []).map((entry, index) => (
+                  <div className="admin-inline-group" key={index}>
+                    <Field
+                      label={`${index + 1}. soru`}
+                      value={entry.question}
+                      onChange={(v) =>
+                        service(
+                          "faq",
+                          s.faq?.map((item, i) =>
+                            i === index ? { ...item, question: v } : item,
+                          ),
+                        )
+                      }
+                    />
+                    <Field
+                      label={`${index + 1}. yanıt`}
+                      value={entry.answer}
+                      onChange={(v) =>
+                        service(
+                          "faq",
+                          s.faq?.map((item, i) =>
+                            i === index ? { ...item, answer: v } : item,
+                          ),
+                        )
+                      }
+                      area
+                    />
+                    <button
+                      className="button outline small"
+                      type="button"
+                      onClick={() =>
+                        service(
+                          "faq",
+                          s.faq?.filter((_, i) => i !== index),
+                        )
+                      }
+                    >
+                      Soruyu kaldır
+                    </button>
+                  </div>
+                ))}
+                <button
+                  className="button outline small"
+                  type="button"
+                  onClick={() =>
+                    service("faq", [
+                      ...(s.faq || []),
+                      { question: "Yeni soru", answer: "Yanıtı buraya yazın." },
+                    ])
+                  }
+                >
+                  Soru ekle +
+                </button>
                 <Link
                   href={`/hizmetler/${s.slug}`}
                   target="_blank"

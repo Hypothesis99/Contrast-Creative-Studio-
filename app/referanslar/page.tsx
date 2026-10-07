@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getContent } from "@/lib/store";
 import { metadata } from "@/lib/seo";
 import { PageIntro, ProjectCard } from "@/components/cards";
+import { Process } from "@/components/editorial";
 export function generateMetadata() {
   return metadata(
     "Referanslar",
@@ -10,8 +11,10 @@ export function generateMetadata() {
   );
 }
 export default function References() {
-  const s = getContent().settings,
-    projects = getContent().projects.filter((p) => p.published && !p.demo);
+  const content = getContent(),
+    s = content.settings,
+    projects = content.projects.filter((p) => p.published && !p.demo),
+    concepts = content.projects.filter((p) => p.published && p.demo);
   return (
     <>
       <PageIntro
@@ -49,21 +52,85 @@ export default function References() {
           </div>
         )}
         {!s.clients.length && !s.testimonials.length && !projects.length && (
-          <div className="empty-feature">
-            <h2>
-              Yeni hikâyelere
-              <br />
-              birlikte başlayalım.
-            </h2>
-            <p>
-              Yaratıcı yaklaşımımızı konsept çalışmalarımızda keşfedin. Kendi
-              markanız için neler yapabileceğimizi konuşalım.
-            </p>
-            <Link href="/projeler" className="button">
-              Konsept çalışmaları incele ↗
-            </Link>
-          </div>
+          <>
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">
+                  YARATICI YAKLAŞIMIMIZDAN ÖRNEKLER
+                </span>
+                <h2>
+                  Farklı ihtiyaçlar.
+                  <br />
+                  Ortak bir özen.
+                </h2>
+              </div>
+              <p>
+                Aşağıdaki çalışmalar konsept örneklerdir.
+                <br />
+                Gerçek müşteri referansı olarak sunulmaz.
+              </p>
+            </div>
+            <div className="project-grid">
+              {concepts.slice(0, 4).map((p, index) => (
+                <ProjectCard project={p} key={p.id} index={index} />
+              ))}
+            </div>
+          </>
         )}
+      </section>
+      <section className="section disciplines-section">
+        <div className="container">
+          <span className="eyebrow">İYİ İŞ BİRLİĞİNİN TEMELİ</span>
+          <h2>
+            Birlikte çalışırken
+            <br />
+            neyi önemsiyoruz?
+          </h2>
+          <Process
+            steps={[
+              {
+                title: "Ortak hedef",
+                description:
+                  "Önce neyi çözmek istediğimizi konuşur, çalışmayı bu hedef etrafında kurarız.",
+              },
+              {
+                title: "Açık kapsam",
+                description:
+                  "Teslimleri, takvimi ve sorumlulukları baştan anlaşılır bir çerçeveye alırız.",
+              },
+              {
+                title: "Düzenli iletişim",
+                description:
+                  "Önemli karar noktalarında görüşür, geri bildirimleri birlikte değerlendiririz.",
+              },
+              {
+                title: "Kullanılabilir sonuç",
+                description:
+                  "İşleri doğru dosyalar ve gerekli kullanım bilgileriyle teslim etmeyi önemseriz.",
+              },
+            ]}
+          />
+        </div>
+      </section>
+      <section className="container section detail-grid">
+        <div>
+          <span className="eyebrow">SİZİN MARKANIZ İÇİN</span>
+          <h2>
+            Yeni bir hikâyeyi
+            <br />
+            birlikte yazalım.
+          </h2>
+        </div>
+        <div>
+          <p>
+            Bir kimlik yenilemesi, düzenli içerik üretimi veya yeni bir
+            kampanya. İhtiyacınızı anlatarak başlayın; hangi hizmetlerin
+            birlikte çalışması gerektiğini değerlendirelim.
+          </p>
+          <Link href="/teklif-al" className="button">
+            Projenizi konuşalım ↗
+          </Link>
+        </div>
       </section>
     </>
   );

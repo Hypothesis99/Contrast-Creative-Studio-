@@ -91,6 +91,21 @@ export function validateContent(value: unknown): Content {
       items: list(s.items, 30).map((x) => required(x, 300)),
       group: required(s.group, 100),
       number: required(s.number, 10),
+      audience: string(s.audience ?? "", 2000),
+      process: list(s.process ?? [], 8).map((x) => {
+        const step = object(x);
+        return {
+          title: required(step.title),
+          description: required(step.description, 2000),
+        };
+      }),
+      faq: list(s.faq ?? [], 20).map((x) => {
+        const entry = object(x);
+        return {
+          question: required(entry.question, 300),
+          answer: required(entry.answer, 3000),
+        };
+      }),
     };
   });
   const projects = list(c.projects, 200).map((x) => {

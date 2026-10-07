@@ -14,6 +14,19 @@ Depodaki `.devcontainer` ayarı Node.js 24 ortamını ve bağımlılıkları haz
 
 Manuel yeniden başlatma: `bash .devcontainer/start-preview.sh`. Başlangıç hataları `.data/preview.log` dosyasına yazılır. Codespaces ayarı ve başlangıç komutları geliştirme ortamında doğrulanmıştır; GitHub hesabınızda Codespace oluşturma adımını siz tamamlamalısınız.
 
+## İçerik seçkisi ve mevcut önizlemeyi güncelleme
+
+12 ayrı hizmet sayfasında özgün tanıtım, teslim kapsamı, hedef kitle, dört çalışma adımı ve üç sık sorulan soru bulunur. Başlangıç içerikleri ayrıca 8 SEO yazısı, 6 konsept proje, proje galerileri, ajans hikâyesi, ekip yaklaşımı, iletişim/brief rehberi ve hukuki metin taslaklarını içerir. Konsept markalar gerçek müşteri referansı veya yayınlanmış kampanya değildir.
+
+Mevcut Codespaces önizlemesinin **tarayıcı içindeki terminalinde** şu komutları çalıştırın; ardından siteyi yenileyin:
+
+```bash
+git pull --ff-only
+bash .devcontainer/start-preview.sh
+```
+
+Mac'in ayrı Terminal uygulamasında değil, Codespaces editöründe çalıştırın. Telefon, e-posta, WhatsApp, Instagram, açık adres, çalışma saatleri, gerçek müşteri yorumları ve showreel bağlantısı doğrulanmadan uydurma bilgiler eklenmez; bu alanlar panelden gerçek bilgilerle tamamlanabilir.
+
 ## Geliştirme
 
 ```bash
@@ -32,7 +45,7 @@ npm run typecheck
 npm test
 ```
 
-`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 13 entegrasyon testi çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
+`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 15 entegrasyon testi, 3 içerik güncelleme testi ve 1 derleme gizliliği kontrolü çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
 
 ## Yönetici hesabı
 
@@ -48,7 +61,7 @@ Panelde şunlar yönetilir:
 
 - Blog yazıları: kategori, tarih, kapak yükleme, Markdown metni, önizleme, URL, SEO başlığı/açıklaması ve taslak/yayın durumu.
 - Projeler: müşteri, çalışma, ihtiyaç, çözüm, öncesi/sonrası, görsel galerisi, video bağlantısı ve konsept/yayın durumu.
-- Hizmet metinleri, ajans hikâyesi, ekip tanıtımı ve iletişim bilgileri.
+- Hizmet metinleri, hedef kitle, çalışma adımları ve sık sorulan sorular; ajans hikâyesi, ekip tanıtımı ve iletişim bilgileri.
 - Firma logoları ve gerçek müşteri yorumları.
 - Teklif talepleri, durum takibi ve korumalı dosya indirme.
 - Alan adı, Google Analytics, Meta Pixel ve Search Console doğrulaması.
@@ -57,7 +70,7 @@ Panelde şunlar yönetilir:
 
 ## Veriler ve dosyalar
 
-Varsayılan veri dizini `.data/`dır. `CONTRAST_DATA_DIR` ile kalıcı bir disk üzerindeki başka bir dizin seçilebilir. İçerik SQLite veritabanında, yüklemeler `media/` ve özel teklif ekleri `attachments/` altında tutulur. Veriler ilk açılışta `lib/seed.ts` içeriğiyle başlatılır; yeniden başlatma mevcut içerikleri değiştirmez.
+Varsayılan veri dizini `.data/`dır. `CONTRAST_DATA_DIR` ile kalıcı bir disk üzerindeki başka bir dizin seçilebilir. İçerik SQLite veritabanında, yüklemeler `media/` ve özel teklif ekleri `attachments/` altında tutulur. Veriler ilk açılışta `lib/seed.ts` içeriğiyle başlatılır. İçerik güncellemesi, eski örnek metinlerle hâlâ aynı olan alanları bir kez yeniler; panelden değiştirilen metinler, dosyalar, yayın tercihleri ve iletişim bilgileri korunur. Silinen eski kayıtlar geri eklenmez. Sonraki yeniden başlatmalar kayıtları sıfırlamaz. Canlı veri dizini geliştirme derleyicisinin kaynak izlemesine dahil edilmez; `.data/` dosyaları üretim bağımlılık listelerinden de hariç tutulur ve çalışma anında kalıcı diskten okunur.
 
 Teklifler panelde saklanır; e-posta veya WhatsApp bildirimi gönderilmez. Ek dosyalar en fazla 5 MB PDF/JPG/PNG/WebP; panel görselleri en fazla 3 MB JPG/PNG/WebP olabilir. Dosya içeriği, oturum ve aynı origin kontrolleri sunucuda doğrulanır.
 

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getContent } from "@/lib/store";
 import { metadata } from "@/lib/seo";
 import { PageIntro } from "@/components/cards";
+import { Faq } from "@/components/editorial";
 export function generateMetadata() {
   return metadata(
     "İletişim",
@@ -25,6 +26,12 @@ export default function Contact() {
             <br />
             değiştirelim.
           </h2>
+          <p>
+            Yeni bir marka, bir web sitesi veya düzenli içerik üretimi için
+            düşünmeye başlamış olabilirsiniz. Hangi hizmete ihtiyacınız olduğunu
+            henüz bilmiyorsanız da konuşabiliriz. İşinizi ve hedefinizi
+            anlatmanız yeterli.
+          </p>
           <Link href="/teklif-al" className="button">
             Projenizi anlatın ↗
           </Link>
@@ -43,6 +50,14 @@ export default function Contact() {
           )}
         </div>
         <div className="contact-details">
+          <div>
+            <span className="eyebrow">İLK GÖRÜŞME</span>
+            <p>
+              Markanızı, ihtiyaçlarınızı ve zamanlamayı birlikte
+              değerlendirelim. Kapsamı netleştirdikten sonra size uygun bir
+              çalışma planı oluşturalım.
+            </p>
+          </div>
           {s.address && (
             <div>
               <span className="eyebrow">STÜDYO</span>
@@ -74,6 +89,15 @@ export default function Contact() {
               Google Maps’te yol tarifi alın ↗
             </a>
           )}
+          {!s.phone && !s.email && (
+            <div className="contact-draft-note">
+              <span className="eyebrow">İLETİŞİM TASLAĞI</span>
+              <p>
+                Telefon, e-posta ve stüdyo adresi eklenecek. Bu önizlemede
+                projenizi teklif formundan paylaşabilirsiniz.
+              </p>
+            </div>
+          )}
           <span className="contact-location">
             BURSA / ORHANGAZİ
             <br />
@@ -81,6 +105,36 @@ export default function Contact() {
           </span>
         </div>
       </section>
+      <section className="section disciplines-section">
+        <div className="container detail-grid">
+          <div>
+            <span className="eyebrow">GÖRÜŞMEYE HAZIRLIK</span>
+            <h2>
+              Kusursuz bir brief
+              <br />
+              gerekmiyor.
+            </h2>
+          </div>
+          <div>
+            <p>
+              Elinizde olanları paylaşın; eksik noktaları birlikte
+              netleştiririz. Şu bilgiler iyi bir başlangıç olur:
+            </p>
+            <ul className="editorial-list">
+              <li>Firmanız ve hedef kitleniz hakkında kısa bir bilgi</li>
+              <li>Çözmek istediğiniz ihtiyaç veya ulaşmak istediğiniz hedef</li>
+              <li>Mevcut logo, web sitesi ve sosyal medya hesaplarınız</li>
+              <li>
+                Varsa örnek beğenileriniz, yaklaşık bütçe ve başlangıç tarihiniz
+              </li>
+            </ul>
+            <Link href="/teklif-al" className="text-link">
+              Briefinizi gönderin ↗
+            </Link>
+          </div>
+        </div>
+      </section>
+      <Faq />
     </>
   );
 }

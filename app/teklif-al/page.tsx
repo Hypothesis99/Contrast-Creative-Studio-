@@ -2,6 +2,7 @@ import { getContent } from "@/lib/store";
 import { metadata } from "@/lib/seo";
 import { PageIntro } from "@/components/cards";
 import { QuoteForm } from "@/components/quote-form";
+import { Faq } from "@/components/editorial";
 export function generateMetadata() {
   return metadata(
     "Teklif Al — Projenizi Konuşalım",
@@ -36,9 +37,39 @@ export default async function Quote({
             <span>02 · İhtiyacı netleştirelim.</span>
             <span>03 · Doğru çözümü planlayalım.</span>
           </div>
+          <h3 className="brief-heading">Ne paylaşabilirsiniz?</h3>
+          <p>
+            Mevcut marka materyalleriniz, örnek beğenileriniz veya
+            hazırladığınız kısa bir brief. Henüz bütçe veya tarih
+            belirlemediyseniz bunu da görüşmede birlikte değerlendirebiliriz.
+          </p>
+          <p>
+            Hassas kişisel bilgi veya parola göndermeyin. Dosya alanını
+            projenizle ilgili doküman ve görseller için kullanın.
+          </p>
         </aside>
         <QuoteForm services={getContent().services} initialService={hizmet} />
       </section>
+      <Faq
+        entries={[
+          {
+            question: "Hangi hizmeti seçmem gerektiğini bilmiyorum.",
+            answer:
+              "İhtiyacınıza yakın gördüğünüz hizmetleri işaretleyip açıklama bölümünde hedefinizi anlatın. Görüşmede hangi çalışmaların gerekli olduğunu birlikte belirleriz.",
+          },
+          {
+            question: "Bütçem henüz belli değil. Formu doldurabilir miyim?",
+            answer:
+              "Evet. Bütçe alanında birlikte belirleme seçeneğini kullanabilirsiniz. Kapsamı konuşarak önceliklerinize uygun bir plan oluştururuz.",
+          },
+          {
+            question: "Gönderdiğim dosyalar herkes tarafından görülebilir mi?",
+            answer:
+              "Teklif formuna eklenen dosyalar herkese açık galeride yayınlanmaz. Talep kaydı ve ekleri yalnızca yetkili yönetici panelinden görüntülenebilir.",
+          },
+        ]}
+        title="Başlamadan önce."
+      />
     </>
   );
 }

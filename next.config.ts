@@ -5,6 +5,7 @@ const config: NextConfig = {
   poweredByHeader: false,
   allowedDevOrigins: ["127.0.0.1", ...(previewHost ? [previewHost] : [])],
   experimental: { cpus: 2 },
+  outputFileTracingExcludes: { "/*": ["./.data/**/*"] },
   async headers() {
     return [
       {

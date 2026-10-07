@@ -6,6 +6,9 @@ export type Service = {
   items: string[];
   group: string;
   number: string;
+  audience?: string;
+  process?: { title: string; description: string }[];
+  faq?: { question: string; answer: string }[];
 };
 export type Project = {
   id: string;

@@ -3,6 +3,8 @@ import { getContent } from "@/lib/store";
 import { metadata, JsonLd, publicUrl } from "@/lib/seo";
 import { Arrow, Star } from "@/components/icons";
 import { ProjectCard, ArticleCard } from "@/components/cards";
+import { Process, Faq } from "@/components/editorial";
+import { StudioSelection } from "@/components/studio-selection";
 export function generateMetadata() {
   return metadata(
     "Contrast Creative Studio — Bursa Reklam & Tasarım Ajansı",
@@ -59,7 +61,7 @@ export default function Home() {
             </div>
             <div className="hero-note">
               <span>01 / YENİ BİR PERSPEKTİF</span>
-              <span>SCROLL TO DISCOVER ↓</span>
+              <span>KEŞFETMEK İÇİN AŞAĞI ↓</span>
             </div>
           </div>
           <Link
@@ -97,6 +99,10 @@ export default function Home() {
           YARATALIM <Star /> İYİ FİKİRLER <Star />
         </div>
       </div>
+      <StudioSelection
+        projects={projects.filter((p) => p.published)}
+        showreelUrl={s.showreelUrl}
+      />
       <section className="section container">
         <div className="section-heading">
           <div>
@@ -179,7 +185,9 @@ export default function Home() {
       </section>
       <section className="brands-section container">
         <span className="eyebrow">
-          GÜZEL İŞLER, GÜÇLÜ İŞ BİRLİKLERİYLE BAŞLAR.
+          {s.clients.length
+            ? "GÜZEL İŞLER, GÜÇLÜ İŞ BİRLİKLERİYLE BAŞLAR."
+            : "KONSEPTLERDE FARKLI MARKA DÜNYALARI"}
         </span>
         {s.clients.length ? (
           <div className="brand-logos">
@@ -200,12 +208,21 @@ export default function Home() {
             ))}
           </div>
         ) : (
-          <div className="brand-invitation">
-            <span>Yeni hikâyelere yer açıyoruz.</span>
-            <Link href="/teklif-al">
-              Sıradaki marka sizin olsun <Arrow diagonal />
-            </Link>
-          </div>
+          <>
+            <div className="brand-logos concept-names">
+              {projects
+                .filter((p) => p.published && p.demo)
+                .map((p) => (
+                  <Link href={`/projeler/${p.slug}`} key={p.id}>
+                    {p.client}
+                  </Link>
+                ))}
+            </div>
+            <p className="content-note">
+              Bu seçkideki isimler yaratıcı yaklaşımımızı anlatan konsept
+              markalardır. Gerçek müşteri referansları değildir.
+            </p>
+          </>
         )}
       </section>
       <section className="about-section">
@@ -221,12 +238,30 @@ export default function Home() {
           </div>
           <div>
             <p className="large-copy">İyi tasarım, iyi bir soruyla başlar.</p>
-            <p>{s.about}</p>
+            <p>{s.about.split(/\n\n+/)[0]}</p>
             <Link href="/hakkimizda" className="text-link light-link">
               Bizi biraz daha tanıyın <Arrow diagonal />
             </Link>
           </div>
         </div>
+      </section>
+      <section className="section container">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">FİKİRDEN UYGULAMAYA</span>
+            <h2>
+              Nasıl birlikte
+              <br />
+              <span className="muted">çalışıyoruz?</span>
+            </h2>
+          </div>
+          <p>
+            Açık bir kapsam, ortak bir hedef.
+            <br />
+            Her adımda ne yaptığımızı bilin.
+          </p>
+        </div>
+        <Process />
       </section>
       <section className="section container quote-section">
         <span className="eyebrow">
@@ -276,6 +311,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Faq />
     </>
   );
 }
