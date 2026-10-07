@@ -1,0 +1,16 @@
+{
+  "name": "Contrast Private Preview",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24-bookworm",
+  "remoteUser": "node",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Contrast site preview",
+      "onAutoForward": "openBrowser",
+      "protocol": "http"
+    }
+  },
+  "postCreateCommand": "npm ci --no-audit --no-fund",
+  "postStartCommand": "bash .devcontainer/start-preview.sh",
+  "waitFor": "postCreateCommand"
+}

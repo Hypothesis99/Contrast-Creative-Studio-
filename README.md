@@ -2,6 +2,18 @@
 
 Türkçe ajans sitesi. Next.js App Router, React, TypeScript ve Node.js 24 ile çalışır. SQLite içerikleri ve teklif taleplerini kalıcı olarak tutar; görseller yereldir, fontlar uygulamayla birlikte sunulur.
 
+## Yayınlamadan tarayıcıda önizleme
+
+**[GitHub Codespaces ile aç](https://codespaces.new/Hypothesis99/Contrast-Creative-Studio-?ref=main)**
+
+1. GitHub hesabınızla giriş yapın ve **Create codespace** düğmesine basın.
+2. Kurulum tamamlanınca site otomatik başlar. Açılmazsa **Ports** sekmesindeki **3000** portunun **Open in Browser** düğmesine basın.
+3. **Port Visibility** ayarını **Private** olarak bırakın. GitHub Codespaces portları varsayılan olarak özeldir; yalnızca sizin oturumunuzdan erişilir.
+
+Depodaki `.devcontainer` ayarı Node.js 24 ortamını ve bağımlılıkları hazırlar. Her yeniden açılışta başlangıç betiği çalışan uygulamayı kontrol eder veya yeniden başlatır. Alan adı, canlı site yayını ve Google indekslemesi gerekmez. Yönetim panelini görmek için Codespaces terminalinde `npm run admin:setup` çalıştırıp bir parola belirleyin; ardından aynı önizleme adresinde `/admin` yolunu açın.
+
+Manuel yeniden başlatma: `bash .devcontainer/start-preview.sh`. Başlangıç hataları `.data/preview.log` dosyasına yazılır. Codespaces ayarı ve başlangıç komutları geliştirme ortamında doğrulanmıştır; GitHub hesabınızda Codespace oluşturma adımını siz tamamlamalısınız.
+
 ## Geliştirme
 
 ```bash
@@ -20,7 +32,7 @@ npm run typecheck
 npm test
 ```
 
-`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 12 entegrasyon testi çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
+`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 13 entegrasyon testi çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
 
 ## Yönetici hesabı
 

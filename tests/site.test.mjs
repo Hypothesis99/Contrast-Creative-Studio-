@@ -80,6 +80,9 @@ before(async () => {
         SESSION_SECRET: secret,
         COOKIE_SECURE: "false",
         NEXT_PUBLIC_SITE_URL: "",
+        CODESPACES: "true",
+        CODESPACE_NAME: "contrast-integration",
+        GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN: "app.github.dev",
       },
       stdio: ["ignore", "pipe", "pipe"],
     },
@@ -195,6 +198,24 @@ test("admin login creates protected session and reads content", async () => {
   cookie = header.split(";")[0];
   content = await (await api("/api/admin/content")).json();
   assert.equal(content.services.length, 12);
+});
+test("Codespaces accepts its own HTTPS origin and rejects other preview origins", async () => {
+  const previewOrigin = "https://contrast-integration-3000.app.github.dev";
+  const valid = await api("/api/admin/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Origin: previewOrigin },
+    body: JSON.stringify({ password }),
+  });
+  assert.equal(valid.status, 200);
+  const foreign = await api("/api/admin/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: "https://other-codespace-3000.app.github.dev",
+    },
+    body: JSON.stringify({ password }),
+  });
+  assert.equal(foreign.status, 403);
 });
 test("quote validation rejects missing consent, missing services and disguised files", async () => {
   const f = quote();

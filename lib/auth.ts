@@ -4,6 +4,7 @@ import { createHmac, timingSafeEqual, scryptSync } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { dataDir, getContent } from "./store";
+import { codespacePreviewHost } from "./preview-host";
 const COOKIE = "contrast_admin";
 type Credentials = { salt: string; hash: string; sessionSecret: string };
 function credentials(): Credentials | null {
@@ -89,6 +90,8 @@ export function sameOrigin(request: Request) {
     host = request.headers.get("host");
   const allowed = new Set([internal.origin]);
   if (host) allowed.add(`${internal.protocol}//${host}`);
+  const previewHost = codespacePreviewHost();
+  if (previewHost) allowed.add(`https://${previewHost}`);
   const configured =
     getContent().settings.siteUrl || process.env.NEXT_PUBLIC_SITE_URL;
   if (configured) {

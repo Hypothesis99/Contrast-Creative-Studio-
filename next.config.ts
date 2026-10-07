@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
+import { codespacePreviewHost } from "./lib/preview-host";
+const previewHost = codespacePreviewHost();
 const config: NextConfig = {
   poweredByHeader: false,
+  allowedDevOrigins: ["127.0.0.1", ...(previewHost ? [previewHost] : [])],
   experimental: { cpus: 2 },
   async headers() {
     return [
