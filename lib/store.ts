@@ -1,0 +1,75 @@
+import "server-only";
+import { DatabaseSync } from "node:sqlite";
+import { mkdirSync } from "node:fs";
+import path from "node:path";
+import { seed } from "./seed";
+import type { Content, Lead } from "./types";
+export const dataDir = path.resolve(
+  /* turbopackIgnore: true */ process.env.CONTRAST_DATA_DIR ||
+    path.join(process.cwd(), ".data"),
+);
+let db: DatabaseSync;
+function database() {
+  if (!db) {
+    mkdirSync(dataDir, { recursive: true, mode: 0o700 });
+    db = new DatabaseSync(path.join(dataDir, "studio.sqlite"));
+    db.exec(
+      "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; CREATE TABLE IF NOT EXISTS content (id INTEGER PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, value TEXT NOT NULL); CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL)",
+    );
+    db.prepare("INSERT OR IGNORE INTO content(id,value) VALUES(1,?)").run(
+      JSON.stringify(seed),
+    );
+  }
+  return db;
+}
+export function getContent(): Content {
+  return JSON.parse(
+    (
+      database().prepare("SELECT value FROM content WHERE id=1").get() as {
+        value: string;
+      }
+    ).value,
+  );
+}
+export function saveContent(content: Content) {
+  database()
+    .prepare("UPDATE content SET value=? WHERE id=1")
+    .run(JSON.stringify(content));
+}
+export function getLeads(): Lead[] {
+  return database()
+    .prepare("SELECT value FROM leads ORDER BY rowid DESC")
+    .all()
+    .map((r) => JSON.parse(r.value as string));
+}
+export function addLead(lead: Lead) {
+  database()
+    .prepare("INSERT INTO leads(id,value) VALUES(?,?)")
+    .run(lead.id, JSON.stringify(lead));
+}
+export function setLeadStatus(id: string, status: string) {
+  const lead = getLeads().find((l) => l.id === id);
+  if (!lead) return false;
+  lead.status = status;
+  database()
+    .prepare("UPDATE leads SET value=? WHERE id=?")
+    .run(JSON.stringify(lead), id);
+  return true;
+}
+export function rateLimit(key: string, max: number, seconds: number): boolean {
+  const now = Date.now(),
+    connection = database();
+  connection.prepare("DELETE FROM rate_limits WHERE expires < ?").run(now);
+  connection
+    .prepare(
+      "INSERT INTO rate_limits(key,count,expires) VALUES(?,1,?) ON CONFLICT(key) DO UPDATE SET count=count+1",
+    )
+    .run(key, now + seconds * 1000);
+  return (
+    (
+      connection
+        .prepare("SELECT count FROM rate_limits WHERE key=?")
+        .get(key) as { count: number }
+    ).count <= max
+  );
+}

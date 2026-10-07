@@ -1,0 +1,153 @@
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import type { Settings } from "@/lib/types";
+import { Arrow, Star } from "./icons";
+import { CookieConsent } from "./tracking";
+const links = [
+  ["Hizmetler", "/hizmetler"],
+  ["Projeler", "/projeler"],
+  ["Hakkımızda", "/hakkimizda"],
+  ["İçerikler", "/blog"],
+  ["İletişim", "/iletisim"],
+];
+export function Brand() {
+  return (
+    <Link
+      href="/"
+      className="brand"
+      aria-label="Contrast Creative Studio ana sayfa"
+    >
+      <span>
+        contrast<span className="brand-dot">®</span>
+      </span>
+      <small>CREATIVE STUDIO</small>
+    </Link>
+  );
+}
+export function SiteShell({
+  children,
+  settings,
+}: {
+  children: React.ReactNode;
+  settings: Settings;
+}) {
+  const pathname = usePathname(),
+    [open, setOpen] = useState(false);
+  if (pathname.startsWith("/admin")) return <>{children}</>;
+  const whatsapp = settings.whatsapp.replace(/\D/g, "");
+  return (
+    <>
+      <header className="site-header">
+        <div className="container header-inner">
+          <Brand />
+          <nav
+            className={open ? "main-nav is-open" : "main-nav"}
+            aria-label="Ana menü"
+          >
+            {links.map(([label, url]) => (
+              <Link
+                key={url}
+                href={url}
+                className={pathname.startsWith(url) ? "active" : ""}
+                onClick={() => setOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
+            <Link
+              href="/teklif-al"
+              className="button small nav-cta"
+              onClick={() => setOpen(false)}
+            >
+              Birlikte çalışalım <Arrow diagonal />
+            </Link>
+          </nav>
+          <button
+            className="menu-toggle"
+            onClick={() => setOpen(!open)}
+            aria-label={open ? "Menüyü kapat" : "Menüyü aç"}
+            aria-expanded={open}
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
+      </header>
+      <main id="main-content">{children}</main>
+      <section className="closing-cta">
+        <div className="container">
+          <span className="eyebrow">SIRADAKİ İYİ FİKİR SİZİN OLABİLİR.</span>
+          <Link href="/teklif-al">
+            <h2>
+              Bir projeniz mi var?
+              <br />
+              <span>Konuşalım.</span>
+            </h2>
+            <span className="big-arrow">
+              <Arrow diagonal />
+            </span>
+          </Link>
+        </div>
+      </section>
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-top">
+            <Brand />
+            <p>
+              Strateji, tasarım ve üretim.
+              <br />
+              Markanız için aynı masadayız.
+            </p>
+            <div>
+              {settings.email && (
+                <a href={`mailto:${settings.email}`}>{settings.email}</a>
+              )}
+              {settings.phone && (
+                <a href={`tel:${settings.phone.replace(/[^+\d]/g, "")}`}>
+                  {settings.phone}
+                </a>
+              )}
+              <Link href="/iletisim">
+                İletişime geçin <Arrow diagonal />
+              </Link>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} Contrast Creative Studio</p>
+            <div>
+              <Link href="/referanslar">Referanslar</Link>
+              <Link href="/kvkk">KVKK</Link>
+              <Link href="/gizlilik">Gizlilik</Link>
+              <Link href="/cerez-politikasi">Çerezler</Link>
+              {settings.instagram && (
+                <a
+                  href={settings.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Instagram ↗
+                </a>
+              )}
+            </div>
+            <span>
+              Fikirden, fark yaratmaya. <Star />
+            </span>
+          </div>
+        </div>
+      </footer>
+      {whatsapp && (
+        <a
+          className="whatsapp"
+          href={`https://wa.me/${whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp üzerinden iletişim"
+        >
+          WhatsApp <Arrow diagonal />
+        </a>
+      )}
+      <CookieConsent settings={settings} />
+    </>
+  );
+}
