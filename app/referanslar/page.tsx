@@ -26,11 +26,14 @@ export default function References() {
         {s.clients.length > 0 && (
           <div className="brand-logos">
             {s.clients.map((c) => (
-              <span key={c.name}>
+              <span className="reference-brand" key={c.name}>
                 {c.logo ? (
                   <img src={c.logo} alt={c.name} width="180" height="70" />
                 ) : (
                   c.name
+                )}
+                {c.demo && (
+                  <small className="eyebrow sample-label">Örnek referans</small>
                 )}
               </span>
             ))}
@@ -38,6 +41,9 @@ export default function References() {
         )}
         {s.testimonials.map((t, i) => (
           <div className="testimonial" key={i}>
+            {t.demo && (
+              <span className="eyebrow sample-label">Örnek yorum · kurgu</span>
+            )}
             <blockquote>“{t.text}”</blockquote>
             <p>
               {t.name} / {t.company}
@@ -51,7 +57,7 @@ export default function References() {
             ))}
           </div>
         )}
-        {!s.clients.length && !s.testimonials.length && !projects.length && (
+        {!projects.length && concepts.length > 0 && (
           <>
             <div className="section-heading">
               <div>

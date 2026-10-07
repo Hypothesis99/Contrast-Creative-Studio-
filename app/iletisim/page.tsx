@@ -3,6 +3,7 @@ import { getContent } from "@/lib/store";
 import { metadata } from "@/lib/seo";
 import { PageIntro } from "@/components/cards";
 import { Faq } from "@/components/editorial";
+import { isSampleContact } from "@/lib/sample-content";
 export function generateMetadata() {
   return metadata(
     "İletişim",
@@ -19,7 +20,10 @@ export default function Contact() {
         title="Konuşmak iyi gelir."
         description="Projenizi, sorularınızı veya bir fikrinizi bizimle paylaşın."
       />
-      <section className="container section top-zero contact-grid">
+      <section
+        id="iletisim-bilgileri"
+        className="container section top-zero contact-grid"
+      >
         <div>
           <h2>
             Birlikte bir şeyler
@@ -35,19 +39,31 @@ export default function Contact() {
           <Link href="/teklif-al" className="button">
             Projenizi anlatın ↗
           </Link>
-          {s.email && (
-            <a className="contact-main" href={`mailto:${s.email}`}>
-              {s.email}
-            </a>
-          )}
-          {s.phone && (
-            <a
-              className="contact-main"
-              href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}
-            >
-              {s.phone}
-            </a>
-          )}
+          {s.email &&
+            (isSampleContact(s, "email") ? (
+              <span className="contact-main">
+                {s.email}
+                <small className="sample-inline">Örnek e-posta</small>
+              </span>
+            ) : (
+              <a className="contact-main" href={`mailto:${s.email}`}>
+                {s.email}
+              </a>
+            ))}
+          {s.phone &&
+            (isSampleContact(s, "phone") ? (
+              <span className="contact-main">
+                {s.phone}
+                <small className="sample-inline">Örnek telefon</small>
+              </span>
+            ) : (
+              <a
+                className="contact-main"
+                href={`tel:${s.phone.replace(/[^+\d]/g, "")}`}
+              >
+                {s.phone}
+              </a>
+            ))}
         </div>
         <div className="contact-details">
           <div>
@@ -60,44 +76,65 @@ export default function Contact() {
           </div>
           {s.address && (
             <div>
-              <span className="eyebrow">STÜDYO</span>
+              <span className="eyebrow">
+                {isSampleContact(s, "address")
+                  ? "ÖRNEK STÜDYO ADRESİ"
+                  : "STÜDYO"}
+              </span>
               <p>{s.address}</p>
             </div>
           )}
           {s.hours && (
             <div>
-              <span className="eyebrow">ÇALIŞMA SAATLERİ</span>
+              <span className="eyebrow">
+                ÇALIŞMA SAATLERİ{isSampleContact(s, "hours") && " · ÖRNEK"}
+              </span>
               <p>{s.hours}</p>
             </div>
           )}
-          {s.whatsapp && (
-            <a
-              href={`https://wa.me/${s.whatsapp.replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp üzerinden yazın ↗
-            </a>
-          )}
-          {s.instagram && (
-            <a href={s.instagram} target="_blank" rel="noopener noreferrer">
-              Instagram’da buluşalım ↗
-            </a>
-          )}
+          {s.whatsapp &&
+            (isSampleContact(s, "whatsapp") ? (
+              <span className="contact-channel">
+                WhatsApp · {s.whatsapp}
+                <small className="sample-inline">Örnek numara</small>
+              </span>
+            ) : (
+              <a
+                href={`https://wa.me/${s.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp üzerinden yazın ↗
+              </a>
+            ))}
+          {s.instagram &&
+            (isSampleContact(s, "instagram") ? (
+              <span className="contact-channel">
+                Instagram · @contrast.creativestudio
+                <small className="sample-inline">Örnek hesap adı</small>
+              </span>
+            ) : (
+              <a href={s.instagram} target="_blank" rel="noopener noreferrer">
+                Instagram’da buluşalım ↗
+              </a>
+            ))}
           {s.mapUrl && (
             <a href={s.mapUrl} target="_blank" rel="noopener noreferrer">
-              Google Maps’te yol tarifi alın ↗
+              {isSampleContact(s, "mapUrl")
+                ? "Orhangazi’yi haritada gör · örnek bölge ↗"
+                : "Google Maps’te yol tarifi alın ↗"}
             </a>
           )}
-          {!s.phone && !s.email && (
+          {s.sampleContactFields?.length || (!s.phone && !s.email) ? (
             <div className="contact-draft-note">
               <span className="eyebrow">İLETİŞİM TASLAĞI</span>
               <p>
-                Telefon, e-posta ve stüdyo adresi eklenecek. Bu önizlemede
-                projenizi teklif formundan paylaşabilirsiniz.
+                İletişim alanları önizleme için örnek bilgilerle dolduruldu.
+                Örnek telefon, e-posta ve sosyal medya hesabı aktif değildir.
+                Projenizi teklif formundan paylaşabilirsiniz.
               </p>
             </div>
-          )}
+          ) : null}
           <span className="contact-location">
             BURSA / ORHANGAZİ
             <br />

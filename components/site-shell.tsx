@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Settings } from "@/lib/types";
 import { Arrow, Star } from "./icons";
 import { CookieConsent } from "./tracking";
+import { isSampleContact } from "@/lib/sample-content";
 const links = [
   ["Hizmetler", "/hizmetler"],
   ["Projeler", "/projeler"],
@@ -100,14 +101,20 @@ export function SiteShell({
               Markanız için aynı masadayız.
             </p>
             <div>
-              {settings.email && (
-                <a href={`mailto:${settings.email}`}>{settings.email}</a>
-              )}
-              {settings.phone && (
-                <a href={`tel:${settings.phone.replace(/[^+\d]/g, "")}`}>
-                  {settings.phone}
-                </a>
-              )}
+              {settings.email &&
+                (isSampleContact(settings, "email") ? (
+                  <span>{settings.email} · örnek</span>
+                ) : (
+                  <a href={`mailto:${settings.email}`}>{settings.email}</a>
+                ))}
+              {settings.phone &&
+                (isSampleContact(settings, "phone") ? (
+                  <span>{settings.phone} · örnek</span>
+                ) : (
+                  <a href={`tel:${settings.phone.replace(/[^+\d]/g, "")}`}>
+                    {settings.phone}
+                  </a>
+                ))}
               <Link href="/iletisim">
                 İletişime geçin <Arrow diagonal />
               </Link>
@@ -158,15 +165,20 @@ export function SiteShell({
               <Link href="/kvkk">KVKK</Link>
               <Link href="/gizlilik">Gizlilik</Link>
               <Link href="/cerez-politikasi">Çerezler</Link>
-              {settings.instagram && (
-                <a
-                  href={settings.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Instagram ↗
-                </a>
-              )}
+              {settings.instagram &&
+                (isSampleContact(settings, "instagram") ? (
+                  <Link href="/iletisim#iletisim-bilgileri">
+                    Instagram · örnek ↗
+                  </Link>
+                ) : (
+                  <a
+                    href={settings.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Instagram ↗
+                  </a>
+                ))}
             </div>
             <span>
               Fikirden, fark yaratmaya. <Star />
@@ -174,15 +186,25 @@ export function SiteShell({
           </div>
         </div>
       </footer>
-      {whatsapp && (
+      {settings.whatsapp && (
         <a
           className="whatsapp"
-          href={`https://wa.me/${whatsapp}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="WhatsApp üzerinden iletişim"
+          href={
+            isSampleContact(settings, "whatsapp")
+              ? "/iletisim#iletisim-bilgileri"
+              : `https://wa.me/${whatsapp}`
+          }
+          {...(!isSampleContact(settings, "whatsapp")
+            ? { target: "_blank", rel: "noopener noreferrer" }
+            : {})}
+          aria-label={
+            isSampleContact(settings, "whatsapp")
+              ? "Örnek WhatsApp iletişim bilgileri"
+              : "WhatsApp üzerinden iletişim"
+          }
         >
-          WhatsApp <Arrow diagonal />
+          WhatsApp{isSampleContact(settings, "whatsapp") && " · örnek"}{" "}
+          <Arrow diagonal />
         </a>
       )}
       <CookieConsent settings={settings} />

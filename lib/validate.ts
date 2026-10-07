@@ -1,4 +1,5 @@
-import type { Content } from "./types";
+import type { ContactField, Content } from "./types";
+import { sampleContacts } from "./sample-content";
 function object(x: unknown): Record<string, unknown> {
   if (!x || typeof x !== "object" || Array.isArray(x))
     throw new Error("Geçersiz içerik.");
@@ -59,12 +60,24 @@ export function validateContent(value: unknown): Content {
     gaId: string(s.gaId, 30),
     pixelId: string(s.pixelId, 30),
     searchConsoleId: string(s.searchConsoleId, 200),
-    showreelUrl: url(s.showreelUrl),
+    showreelUrl:
+      s.showreelUrl === "/showreel" ? "/showreel" : url(s.showreelUrl),
+    showreelDemo: boolean(s.showreelDemo ?? false),
+    sampleContactFields: list(s.sampleContactFields ?? [], 7).map((x) => {
+      const field = string(x, 30);
+      if (!Object.hasOwn(sampleContacts, field))
+        throw new Error("Geçersiz örnek iletişim alanı.");
+      return field as ContactField;
+    }),
     about: string(s.about, 6000),
     team: string(s.team, 6000),
     clients: list(s.clients, 50).map((x) => {
       const c = object(x);
-      return { name: required(c.name), logo: url(c.logo, true) };
+      return {
+        name: required(c.name),
+        logo: url(c.logo, true),
+        demo: boolean(c.demo ?? false),
+      };
     }),
     testimonials: list(s.testimonials, 50).map((x) => {
       const t = object(x);
@@ -72,6 +85,7 @@ export function validateContent(value: unknown): Content {
         name: required(t.name),
         company: string(t.company, 200),
         text: required(t.text, 2000),
+        demo: boolean(t.demo ?? false),
       };
     }),
   };

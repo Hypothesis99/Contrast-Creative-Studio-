@@ -4,6 +4,7 @@ import { useState } from "react";
 import type {
   Article,
   Content,
+  ContactField,
   Lead,
   Project,
   Service,
@@ -11,6 +12,7 @@ import type {
 } from "@/lib/types";
 import { Brand } from "./site-shell";
 import { Prose } from "./cards";
+import { isSampleContact, sampleContacts } from "@/lib/sample-content";
 export function AdminLogin({ configured }: { configured: boolean }) {
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
@@ -214,7 +216,14 @@ export function AdminPanel({
     setNotice("");
   }
   function settings(key: keyof Settings, value: unknown) {
-    change({ ...content, settings: { ...content.settings, [key]: value } });
+    const next = { ...content.settings, [key]: value };
+    if (Object.hasOwn(sampleContacts, key)) {
+      next.sampleContactFields = (next.sampleContactFields ?? []).filter(
+        (field) => field !== key,
+      );
+    }
+    if (key === "showreelUrl") next.showreelDemo = value === "/showreel";
+    change({ ...content, settings: next });
   }
   function article(key: keyof Article, value: unknown) {
     change({
@@ -482,7 +491,10 @@ export function AdminPanel({
               {[
                 [!!content.settings.siteUrl, "Gerçek HTTPS alan adı"],
                 [
-                  !!content.settings.email && !!content.settings.phone,
+                  !!content.settings.email &&
+                    !!content.settings.phone &&
+                    !isSampleContact(content.settings, "email") &&
+                    !isSampleContact(content.settings, "phone"),
                   "İletişim bilgileri",
                 ],
                 [
@@ -1036,6 +1048,14 @@ export function AdminPanel({
                   label={label}
                   value={String(content.settings[key])}
                   onChange={(v) => settings(key, v)}
+                  hint={
+                    Object.hasOwn(sampleContacts, key) &&
+                    isSampleContact(content.settings, key as ContactField)
+                      ? "Örnek bilgi. Kendi bilginizi yazdığınızda örnek etiketi kaldırılır."
+                      : key === "showreelUrl"
+                        ? "Hazır konsept video için /showreel; kendi videonuz için HTTPS bağlantısı."
+                        : undefined
+                  }
                 />
               ))}
               <Field
@@ -1105,6 +1125,21 @@ export function AdminPanel({
                         )
                       }
                     />
+                    <label className="admin-check">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(c.demo)}
+                        onChange={(e) =>
+                          settings(
+                            "clients",
+                            content.settings.clients.map((x, j) =>
+                              j === i ? { ...x, demo: e.target.checked } : x,
+                            ),
+                          )
+                        }
+                      />
+                      Örnek referans etiketi
+                    </label>
                     <button
                       className="danger-link"
                       onClick={() =>
@@ -1154,6 +1189,21 @@ export function AdminPanel({
                         area={key === "text"}
                       />
                     ))}
+                    <label className="admin-check">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(t.demo)}
+                        onChange={(e) =>
+                          settings(
+                            "testimonials",
+                            content.settings.testimonials.map((x, j) =>
+                              j === i ? { ...x, demo: e.target.checked } : x,
+                            ),
+                          )
+                        }
+                      />
+                      Örnek yorum · kurgu etiketi
+                    </label>
                     <button
                       className="danger-link"
                       onClick={() =>

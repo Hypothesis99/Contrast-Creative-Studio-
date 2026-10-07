@@ -134,6 +134,7 @@ test("public pages and all 12 service pages render real content", async () => {
     "/blog/kurumsal-kimlik-nedir",
     "/hakkimizda",
     "/referanslar",
+    "/showreel",
     "/teklif-al?hizmet=logo-tasarimi",
     "/iletisim",
     "/kvkk",
@@ -234,9 +235,17 @@ test("existing database upgrades once while retaining administrator content", as
   const db = new DatabaseSync(path.join(dir, "studio.sqlite"));
   assert.equal(
     db.prepare("SELECT COUNT(*) AS count FROM content_updates").get().count,
-    1,
+    2,
   );
   db.close();
+  assert.equal(content.settings.showreelUrl, "/showreel");
+  assert.equal(content.settings.showreelDemo, true);
+  assert.equal(content.settings.clients.length, 4);
+  assert.equal(content.settings.testimonials.length, 3);
+  assert.ok(content.settings.clients.every((c) => c.demo));
+  assert.ok(content.settings.testimonials.every((t) => t.demo));
+  assert.ok(content.settings.sampleContactFields.includes("phone"));
+  assert.equal(content.settings.sampleContactFields.includes("email"), false);
   for (const article of content.articles) {
     assert.ok(article.body.length > 2000, article.slug);
     assert.equal((await api(`/blog/${article.slug}`)).status, 200);
@@ -246,6 +255,32 @@ test("existing database upgrades once while retaining administrator content", as
     for (const image of [project.image, ...project.gallery])
       assert.equal((await api(image)).status, 200, image);
   }
+});
+test("sample contacts, references and playable video are labelled and safe to preview", async () => {
+  const contact = await (await api("/iletisim")).text();
+  assert.match(contact, /ÖRNEK STÜDYO ADRESİ/);
+  assert.match(contact, /Örnek Mahallesi/);
+  assert.match(contact, /href="mailto:saved@example.org"/);
+  assert.doesNotMatch(contact, /href="tel:/);
+  assert.doesNotMatch(contact, /href="https:\/\/wa.me\//);
+  assert.doesNotMatch(contact, /href="https:\/\/contrast.example\/instagram/);
+  const references = await (await api("/referanslar")).text();
+  assert.match(references, /Örnek referans/);
+  assert.match(references, /Örnek yorum · kurgu/);
+  for (const client of content.settings.clients)
+    assert.equal((await api(client.logo)).status, 200);
+  const showreel = await (await api("/showreel")).text();
+  assert.match(showreel, /<video[^>]*controls/);
+  assert.match(showreel, /\/videos\/concept-showreel.mp4/);
+  assert.match(showreel, /20 SANİYE/);
+  assert.match(showreel, /noindex, follow/);
+  const video = await api("/videos/concept-showreel.mp4", {
+    headers: { Range: "bytes=0-255" },
+  });
+  assert.equal(video.status, 206);
+  assert.match(video.headers.get("content-type"), /video\/mp4/);
+  assert.equal((await video.arrayBuffer()).byteLength, 256);
+  assert.equal((await api("/videos/concept-showreel-poster.jpg")).status, 200);
 });
 test("service FAQs and workflow edits persist and malformed data is rejected", async () => {
   content.services[0].faq[0].answer = "Panelden güncellenen cevap.";
@@ -411,6 +446,11 @@ test("domain configuration activates canonical, schema and published-only sitema
     /rel="canonical" href="https:\/\/contrast-test.example\/"/,
   );
   assert.match(home, /application\/ld\+json/);
+  const schema = JSON.parse(
+    home.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1],
+  );
+  assert.equal(schema.telephone, undefined);
+  assert.equal(schema.email, "saved@example.org");
   assert.match(
     await (await api("/robots.txt")).text(),
     /Sitemap: https:\/\/contrast-test.example\/sitemap.xml/,

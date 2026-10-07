@@ -5,6 +5,7 @@ import { Arrow, Star } from "@/components/icons";
 import { ProjectCard, ArticleCard } from "@/components/cards";
 import { Process, Faq } from "@/components/editorial";
 import { StudioSelection } from "@/components/studio-selection";
+import { isSampleContact } from "@/lib/sample-content";
 export function generateMetadata() {
   return metadata(
     "Contrast Creative Studio — Bursa Reklam & Tasarım Ajansı",
@@ -25,8 +26,12 @@ export default function Home() {
             name: s.name,
             url,
             description: s.description,
-            ...(s.phone ? { telephone: s.phone } : {}),
-            ...(s.email ? { email: s.email } : {}),
+            ...(s.phone && !isSampleContact(s, "phone")
+              ? { telephone: s.phone }
+              : {}),
+            ...(s.email && !isSampleContact(s, "email")
+              ? { email: s.email }
+              : {}),
             areaServed: ["Bursa", "Orhangazi"],
           }}
         />
@@ -67,7 +72,7 @@ export default function Home() {
           <Link
             href={s.showreelUrl || "/projeler"}
             className="hero-art"
-            {...(s.showreelUrl
+            {...(s.showreelUrl.startsWith("https://")
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
@@ -83,10 +88,16 @@ export default function Home() {
               <span className="play-icon">{s.showreelUrl ? "▶" : "↗"}</span>
               <span>
                 {s.showreelUrl
-                  ? "Studio showreel"
+                  ? s.showreelDemo
+                    ? "Konsept showreel"
+                    : "Studio showreel"
                   : "Yaratıcı dünyamızı keşfet"}
                 <small>
-                  {s.showreelUrl ? "HİKÂYEMİZİ İZLEYİN" : "TASARIM KONSEPTLERİ"}
+                  {s.showreelDemo
+                    ? "20 SANİYE / ÖRNEK ÇALIŞMA"
+                    : s.showreelUrl
+                      ? "HİKÂYEMİZİ İZLEYİN"
+                      : "TASARIM KONSEPTLERİ"}
                 </small>
               </span>
             </span>
@@ -102,6 +113,7 @@ export default function Home() {
       <StudioSelection
         projects={projects.filter((p) => p.published)}
         showreelUrl={s.showreelUrl}
+        showreelDemo={s.showreelDemo}
       />
       <section className="section container">
         <div className="section-heading">
@@ -185,14 +197,16 @@ export default function Home() {
       </section>
       <section className="brands-section container">
         <span className="eyebrow">
-          {s.clients.length
-            ? "GÜZEL İŞLER, GÜÇLÜ İŞ BİRLİKLERİYLE BAŞLAR."
-            : "KONSEPTLERDE FARKLI MARKA DÜNYALARI"}
+          {s.clients.length && s.clients.every((c) => c.demo)
+            ? "ÖRNEK MARKA SEÇKİSİ"
+            : s.clients.length
+              ? "GÜZEL İŞLER, GÜÇLÜ İŞ BİRLİKLERİYLE BAŞLAR."
+              : "KONSEPTLERDE FARKLI MARKA DÜNYALARI"}
         </span>
         {s.clients.length ? (
           <div className="brand-logos">
             {s.clients.map((c) => (
-              <span key={c.name}>
+              <span className="reference-brand" key={c.name}>
                 {c.logo ? (
                   <img
                     src={c.logo}
@@ -203,6 +217,9 @@ export default function Home() {
                   />
                 ) : (
                   c.name
+                )}
+                {c.demo && (
+                  <small className="eyebrow sample-label">Örnek referans</small>
                 )}
               </span>
             ))}
@@ -269,6 +286,9 @@ export default function Home() {
         </span>
         {s.testimonials.length ? (
           <>
+            {s.testimonials[0].demo && (
+              <span className="eyebrow sample-label">Örnek yorum · kurgu</span>
+            )}
             <blockquote>“{s.testimonials[0].text}”</blockquote>
             <p>
               {s.testimonials[0].name}

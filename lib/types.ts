@@ -41,6 +41,8 @@ export type Article = {
   seoDescription: string;
   published: boolean;
 };
+export type ContactField =
+  "phone" | "whatsapp" | "email" | "instagram" | "address" | "hours" | "mapUrl";
 export type Settings = {
   name: string;
   tagline: string;
@@ -57,10 +59,17 @@ export type Settings = {
   pixelId: string;
   searchConsoleId: string;
   showreelUrl: string;
+  showreelDemo?: boolean;
+  sampleContactFields?: ContactField[];
   about: string;
   team: string;
-  clients: { name: string; logo: string }[];
-  testimonials: { name: string; company: string; text: string }[];
+  clients: { name: string; logo: string; demo?: boolean }[];
+  testimonials: {
+    name: string;
+    company: string;
+    text: string;
+    demo?: boolean;
+  }[];
 };
 export type Content = {
   settings: Settings;

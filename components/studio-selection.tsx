@@ -8,9 +8,11 @@ import { Arrow } from "./icons";
 export function StudioSelection({
   projects,
   showreelUrl,
+  showreelDemo,
 }: {
   projects: Project[];
   showreelUrl: string;
+  showreelDemo?: boolean;
 }) {
   const [selected, setSelected] = useState(0);
   const project = projects[selected];
@@ -32,11 +34,15 @@ export function StudioSelection({
           <Link
             href={showreelUrl || "/projeler"}
             className="text-link light-link"
-            {...(showreelUrl
+            {...(showreelUrl.startsWith("https://")
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
-            {showreelUrl ? "Showreel’i izle" : "Proje hikâyelerine geç"}
+            {showreelUrl
+              ? showreelDemo
+                ? "Konsept showreel’i izle"
+                : "Showreel’i izle"
+              : "Proje hikâyelerine geç"}
             <Arrow diagonal />
           </Link>
           <div className="selection-controls">

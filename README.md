@@ -25,7 +25,9 @@ git pull --ff-only
 bash .devcontainer/start-preview.sh
 ```
 
-Mac'in ayrı Terminal uygulamasında değil, Codespaces editöründe çalıştırın. Telefon, e-posta, WhatsApp, Instagram, açık adres, çalışma saatleri, gerçek müşteri yorumları ve showreel bağlantısı doğrulanmadan uydurma bilgiler eklenmez; bu alanlar panelden gerçek bilgilerle tamamlanabilir.
+Mac'in ayrı Terminal uygulamasında değil, Codespaces editöründe çalıştırın. Önizleme için örnek telefon/WhatsApp, e-posta, Instagram adı, stüdyo adresi ve çalışma saatleri; dört konsept marka logosu, üç kurgu yorum ve 20 saniyelik yerel showreel eklidir. Örnekler sayfalarda etiketlenir. Örnek telefon ve e-posta arama/gönderim bağlantısı oluşturmaz; örnek WhatsApp ve Instagram düğmeleri iletişim sayfasına gider. Harita, örnek adres yerine Orhangazi bölgesini gösterir.
+
+**Site ayarları** bölümünde iletişim alanını değiştirdiğinizde o alanın örnek etiketi kaldırılır. Logo ve yorumların örnek etiketleri ayrı kutularla yönetilir. Hazır video `/showreel` yolundadır; panelde showreel bağlantısını kendi HTTPS video adresinizle değiştirebilirsiniz.
 
 ## Geliştirme
 
@@ -45,7 +47,7 @@ npm run typecheck
 npm test
 ```
 
-`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 15 entegrasyon testi, 3 içerik güncelleme testi ve 1 derleme gizliliği kontrolü çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
+`npm test` üretim derlemesini kullanır ve ayrı bir geçici veritabanıyla 16 entegrasyon testi, 3 içerik güncelleme testi, 4 örnek içerik testi ve 1 derleme gizliliği kontrolü çalıştırır: tüm sayfalar ve 12 hizmet, giriş yetkisi, yabancı origin engellemesi, Codespaces HTTPS adresi, form doğrulaması, dosya gizliliği, kayıt kalıcılığı, blog taslak/yayın geçişi, içerik doğrulaması, görsel yükleme, canonical/schema/sitemap, örnek etiketleri, video sunumu ve çıkış. Test kullanıcı bilgileri rastgele oluşturulur, gösterilmez ve gerçek içerik değiştirilmez. Derleme sırasında aynı `.next` klasörünü kullanan geliştirme sunucusunu durdurun.
 
 ## Yönetici hesabı
 
@@ -62,7 +64,7 @@ Panelde şunlar yönetilir:
 - Blog yazıları: kategori, tarih, kapak yükleme, Markdown metni, önizleme, URL, SEO başlığı/açıklaması ve taslak/yayın durumu.
 - Projeler: müşteri, çalışma, ihtiyaç, çözüm, öncesi/sonrası, görsel galerisi, video bağlantısı ve konsept/yayın durumu.
 - Hizmet metinleri, hedef kitle, çalışma adımları ve sık sorulan sorular; ajans hikâyesi, ekip tanıtımı ve iletişim bilgileri.
-- Firma logoları ve gerçek müşteri yorumları.
+- Firma logoları, müşteri yorumları ve örnek içerik etiketleri.
 - Teklif talepleri, durum takibi ve korumalı dosya indirme.
 - Alan adı, Google Analytics, Meta Pixel ve Search Console doğrulaması.
 

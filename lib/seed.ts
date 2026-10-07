@@ -2,8 +2,9 @@ import type { Content } from "./types";
 import { services } from "./service-content";
 import { articles } from "./article-content";
 import { projects } from "./project-content";
+import { fillSampleContent } from "./sample-content";
 
-export const seed: Content = {
+export const editorialSeed: Content = {
   settings: {
     name: "Contrast Creative Studio",
     tagline: "İyi fikirler. Güçlü kontrastlar.",
@@ -31,3 +32,5 @@ export const seed: Content = {
   projects,
   articles,
 };
+
+export const seed = fillSampleContent(editorialSeed);

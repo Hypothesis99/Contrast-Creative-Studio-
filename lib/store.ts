@@ -2,9 +2,10 @@ import "server-only";
 import { DatabaseSync } from "node:sqlite";
 import { mkdirSync } from "node:fs";
 import path from "node:path";
-import { seed } from "./seed";
+import { seed, editorialSeed } from "./seed";
 import previousContent from "./content-v1.json";
 import { mergeContentUpdate } from "./content-update";
+import { fillSampleContent } from "./sample-content";
 import type { Content, Lead } from "./types";
 // Resolve mutable state at runtime, so database, upload and log writes do not
 // become Turbopack source dependencies and trigger repeated page reloads.
@@ -36,12 +37,30 @@ function database() {
         const updated = mergeContentUpdate(
           JSON.parse(row.value),
           previousContent,
-          seed,
+          editorialSeed,
         );
         db.prepare("UPDATE content SET value=? WHERE id=1").run(
           JSON.stringify(updated),
         );
         db.prepare("INSERT INTO content_updates(id) VALUES(?)").run(version);
+      }
+      const sampleVersion = "sample-preview-2026-10-v3";
+      if (
+        !db
+          .prepare("SELECT id FROM content_updates WHERE id=?")
+          .get(sampleVersion)
+      ) {
+        const row = db
+          .prepare("SELECT value FROM content WHERE id=1")
+          .get() as {
+          value: string;
+        };
+        db.prepare("UPDATE content SET value=? WHERE id=1").run(
+          JSON.stringify(fillSampleContent(JSON.parse(row.value))),
+        );
+        db.prepare("INSERT INTO content_updates(id) VALUES(?)").run(
+          sampleVersion,
+        );
       }
       db.exec("COMMIT");
     } catch (error) {

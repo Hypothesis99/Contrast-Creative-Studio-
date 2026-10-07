@@ -562,6 +562,46 @@ p {
   max-width: 160px;
   filter: grayscale(1);
 }
+.reference-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.reference-brand .sample-label {
+  margin-bottom: 0;
+}
+.sample-label {
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+.sample-inline {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.showreel-player {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+}
+.showreel-description {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+.showreel-description > div {
+  flex: 1 1 300px;
+  max-width: 700px;
+}
+.showreel-description .button {
+  max-width: 100%;
+}
 .about-section {
   background: var(--ink);
   color: var(--paper);
@@ -1292,6 +1332,7 @@ label small {
   display: block;
   font-size: 20px;
   margin-top: 25px;
+  overflow-wrap: anywhere;
 }
 .contact-details > div {
   margin-bottom: 40px;
@@ -1300,7 +1341,8 @@ label small {
   white-space: pre-line;
   font-size: 14px;
 }
-.contact-details > a {
+.contact-details > a,
+.contact-channel {
   display: block;
   border-bottom: 1px solid var(--line);
   padding: 15px 0;
@@ -2754,6 +2796,18 @@ label small {
   padding: 20px;
   margin: 15px 0;
   border: 1px solid var(--line);
+}
+.editor .admin-check {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+  margin: 14px 0;
+}
+.editor .admin-check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
 }
 @media (max-width: 1000px) {
   .selection-grid,
